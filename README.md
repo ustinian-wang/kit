@@ -23,8 +23,8 @@ console.log( cloneDeep( oldObj ) );
 
 ## API
 
-点击[查看](http://mafe.fff.com/kit/);
 
 ## 建议
-有更多需要支持的方法可以提[issue](http://gitlab.faidev.cc/jz/mallfrontend/issues/1);
+
+有更多需要支持的方法可以提[issue];
 
