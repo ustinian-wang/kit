@@ -1,7 +1,6 @@
 {
     "name": "@ustinian-wang/kit",
-    "version": "0.0.2",
-    "description": "common kits of javascript",
+    "version": "0.0.3",
     "main": "index.js",
     "scripts": {
         "test": "jest",
@@ -10,7 +9,12 @@
     },
     "keywords": [
         "kit",
-        "axios"
+        "request",
+        "common",
+        "javascript",
+        "util",
+        "tool",
+        "es"
     ],
     "files": [
         "index.js",
@@ -29,5 +33,7 @@
     "dependencies": {
         "axios": "^1.7.2",
         "tiny-cookie": "^2.5.1"
-    }
+    },
+    "repository": "https://github.com/ustinian-wang/kit",
+    "homepage": "https://ustinian-wang.github.io/kit/"
 }
