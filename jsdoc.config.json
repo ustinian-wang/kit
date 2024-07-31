@@ -1,0 +1,37 @@
+{
+    "source": {
+        "include": ["index.js", "./src/utils"],
+        "excludePattern": "(node_modules/|kit-docs)"
+    },
+    "opts": {
+        "encoding": "utf8",
+        "recurse": true,
+        "verbose": true,
+        "destination": "./kit-docs",
+        "template": "../../node_modules/better-docs",
+        "readme": "README.md"
+    },
+    "tags": {
+        "allowUnknownTags": ["category"]
+    },
+    "plugins": [
+        "plugins/markdown",
+        "../../node_modules/better-docs/category"
+    ],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "search": true,
+        "better-docs": {
+            "name": "@mall/kit",
+            "title": "kit",
+	        "hideGenerator": true,
+            "navLinks": [
+                {
+                    "label": "GitLab",
+                    "href": "http://gitlab.faidev.cc/jz/mallfrontend/tree/master/packages/kit"
+                }
+            ]
+        }
+    }
+}

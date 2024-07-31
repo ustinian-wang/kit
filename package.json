@@ -1,28 +1,32 @@
 {
-  "name": "@ustinian-wang/kit",
-  "version": "0.0.1",
-  "description": "common kits of javascript",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "keywords": [
-    "kit",
-    "axios"
-  ],
-  "files": [
-    "index.js",
-    "src"
-  ],
-  "author": "ustinian-wang",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.2",
-    "babel-jest": "^29.7.0",
-    "jest": "^29.7.0"
-  },
-  "dependencies": {
-    "axios": "^1.7.2"
-  }
+    "name": "@ustinian-wang/kit",
+    "version": "0.0.1",
+    "description": "common kits of javascript",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "jsdoc:build": "jsdoc -c jsdoc.config.json",
+        "docs:build": "yarn jsdoc:build"
+    },
+    "keywords": [
+        "kit",
+        "axios"
+    ],
+    "files": [
+        "index.js",
+        "src"
+    ],
+    "author": "ustinian-wang",
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.25.2",
+        "@babel/preset-env": "^7.25.2",
+        "babel-jest": "^29.7.0",
+        "better-docs": "^2.7.3",
+        "jest": "^29.7.0",
+        "jsdoc": "^4.0.3"
+    },
+    "dependencies": {
+        "axios": "^1.7.2"
+    }
 }
