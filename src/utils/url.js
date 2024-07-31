@@ -53,28 +53,31 @@ export function toUrl(options){
  * @param {string} url
  * @return {URLSearchParams}
  */
-export const getUrlSearchParam = (url)=>{
+export function getUrlSearchParam(url) {
     let res = parseUrl(url);
     return new URLSearchParams(res.search);
 }
+
 /**
  * 获取url中的get参数
  * @param {string} url
  * @param {string} key
  * @return {string}
  */
-export const getUrlParam = (url, key)=>{
+export function getUrlParam(url, key) {
     let searchParams = getUrlSearchParam(url);
     return searchParams.get(key);
 }
+
 /**
  * 获取当前url中的get参数
  * @param {string} key
  * @return {string}
  */
-export const getCurrUrlParam = (key)=>{
+export function getCurrUrlParam(key) {
     return getUrlParam(location.href, key);
 }
+
 /**
  * 设置url中的get参数
  * @param {string} url
@@ -82,25 +85,26 @@ export const getCurrUrlParam = (key)=>{
  * @param {any} value
  * @return {string}
  */
-export const setUrlParam = (url, key, value)=>{
+export function setUrlParam(url, key, value) {
     let res = parseUrl(url);
     let searchParams = new URLSearchParams(res.search);
     searchParams.set(key, value);
     res.search = searchParams.toString();
-    
+
     return toUrl(res);
 }
+
 /**
  * 设置当前url中的get参数
  * @param {string} key
  * @param {string} value
  * @return {string}
  */
-export const setCurrUrlParam = (key, value)=>{
+export function setCurrUrlParam(key, value) {
     return setUrlParam(location.href, key, value);
 }
 
-export const setUrlRandomParam = (url, key)=>{
+export function setUrlRandomParam(url, key) {
     return setUrlParam(url, key, Math.random());
 }
 
@@ -124,11 +128,11 @@ export function setUrlParams(url, params={}){
  * @param url
  * @return {boolean}
  */
-export const isUrl = (url)=>{
-    try{
+export function isUrl(url) {
+    try {
         new URL(url);
         return true;
-    }catch ( e ) {
+    } catch (e) {
         return false;
     }
 }

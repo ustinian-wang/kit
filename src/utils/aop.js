@@ -1,4 +1,5 @@
-import { CacheFactory } from "./cache";
+import {CacheFactory} from "./cache";
+import {isFunction} from "./typer.js";
 
 /**
  * @description 一个强化函数，用于缓存函数的返回值。
@@ -10,7 +11,7 @@ export function memorize(func) {
 
     const cache = CacheFactory({}); // 应该传入配置参数
 
-    return function(...args) {
+    return function (...args) {
         const key = JSON.stringify(args);
 
         if (cache.containsKey(key)) {
@@ -27,17 +28,17 @@ export function memorize(func) {
 /**
  * @description 延迟函数执行，并且缓存延迟期间的参数
  * @param func
- * @param timefunction
+ * @param time
  * @return {function}
  */
-export const delay = (func, time=0)=>{
+export function delay(func, time = 0) {
     let timer = null;
     let argumentsList = [];
-    return function (){
+    return function () {
         argumentsList.push(arguments);
         clearTimeout(timer);
-        timer = setTimeout(()=>{
-            func.call(this, argumentsList.map(args=>[...args]));
+        timer = setTimeout(() => {
+            func.call(this, argumentsList.map(args => [...args]));
             argumentsList = [];
         }, time);
     }
@@ -45,27 +46,29 @@ export const delay = (func, time=0)=>{
 
 /**
  * @description 防抖
-  * @param func
- * @param delay
+ * @param {function} func *
+ * @param {number} [time=300] ms
  * @return {function}
  */
-export function debounce(func, delay) {
+export function debounce(func, time=300) {
     let timeoutId;
     return function (...args) {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
-            func.apply(this, args);
-        }, delay);
+            if(isFunction(func)){
+                func.apply(this, args);
+            }
+        }, time);
     };
 }
 
 /**
  * @description 节流
-  * @param func
- * @param delay
+ * @param {function} func
+ * @param {number} [delay=300] ms
  * @return {function}
  */
-export function throttle(func, delay) {
+export function throttle(func, delay = 300) {
     let isThrottled = false;
     return function (...args) {
         if (!isThrottled) {

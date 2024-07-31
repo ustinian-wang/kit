@@ -4,28 +4,26 @@ import {noop} from "./func.js";
 /**
  * @description 用于处理高频操作，避免点击流程未结束，界面响应了用户的下一次点击
  * @example
- <pre>//A.vue
-     //创建
-     import { getTriggerLock } from '@/utils/lock.js';
-     let locker = getTriggerLock();
-     export default {
-        onLoad(){
-            locker.release();
-        },
-        methods:{
-            onClickToProductDetail(){
-              locker.trigger(async () => {
-                let res1 = await getDataByAjax();
-                let res2 = await setCartItem();
-                let id = res2.data.data.id;
-                uni.navigateTo({
-                  url: "/pages/somePage?id="+id
-                })
-              });
-            }
-        }
-    });
- <pre>
+ * //创建
+ * import { getTriggerLock } from '@/utils/lock.js';
+ * let locker = getTriggerLock();
+ * export default {
+ *      onLoad(){
+ *          locker.release();
+ *      },
+ *      methods:{
+ *          onClickToProductDetail(){
+ *            locker.trigger(async () => {
+ *              let res1 = await getDataByAjax();
+ *              let res2 = await setCartItem();
+ *              let id = res2.data.data.id;
+ *              uni.navigateTo({
+ *                url: "/pages/somePage?id="+id
+ *              })
+ *            });
+ *          }
+ *      }
+ *  });
  *
  */
 export class TriggerLock {
@@ -72,20 +70,22 @@ export class TriggerLock {
         return LockerWrapper(this, func);
     }
 }
-/**
- * @description get lockFactory instance of click action
- * @type {function(): TriggerLock}
- */
-export const getTriggerLock = TriggerLock.getInstance; //alias getTriggerLock
 
 /**
- * create function with locker
+ * @description get lockFactory instance of click action
+ * @returns {TriggerLock}
+ */
+export function getTriggerLock(){
+    return TriggerLock.getInstance(...arguments);
+}
+
+/**
+ * @description create function with locker
  * @param {TriggerLock} locker a instance of TriggerLocker
  * @param {function} func you would like to control the function through locker, the default value is empty function, just like noop
  * @returns {function}
- * @constructor
  */
-export const LockerWrapper = (locker, func = noop) => {
+export function LockerWrapper (locker, func = noop) {
     if (!locker) {
         console.log('please pass locker');
         return func;
@@ -102,4 +102,4 @@ export const LockerWrapper = (locker, func = noop) => {
             return await awaitPromiseRes(res);
         });
     };
-};
+}

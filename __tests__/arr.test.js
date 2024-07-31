@@ -1,10 +1,10 @@
 import {
     array2Map,
     fixArrayIndex,
-    getElementsOfCircleArray, getFieldList, getFirstByField,
+    getElementsOfCircleArray, getFieldList, getFirstByField, getFirstByFieldEquals,
     insertArrayToCircleArray,
     isNumberArray,
-    removeElementsOfArray, splitListByCondition
+    removeElementsOfArray, sortByFieldAndOrder, splitListByCondition, uniqueArray2Map
 } from "../src/utils/arr.js";
 import {testFunctionArgType} from "./utils.js";
 
@@ -339,4 +339,44 @@ test('removeElementsOfArray', () => {
     let arr = [{ a: 1 }, { a: 2 }, { a: 3 }];
     let res = removeElementsOfArray(arr, 'a', 2);
     expect(res).toEqual([{ a: 1 }, { a: 3 }]);
+});
+
+
+describe('uniqueArray2Map', () => {
+    test('should return an empty object if the input list is empty', () => {
+        expect(uniqueArray2Map([])).toEqual({});
+    });
+
+    test('should correctly translate the array to a map', () => {
+        const list = [{a: 1}, {a: 2}];
+        expect(uniqueArray2Map(list, 'a')).toEqual({1: {a: 1}, 2: {a: 2}});
+    });
+
+    test('should correctly handle a custom uniqueFieldOrHandler function', () => {
+        const list = [{a: 1}, {a: 2}];
+        const uniqueFieldOrHandler = (item) => item.a * 2;
+        expect(uniqueArray2Map(list, uniqueFieldOrHandler)).toEqual({2: {a: 1}, 4: {a: 2}});
+    });
+});
+
+describe('getFirstByFieldEquals', () => {
+
+
+    test('should return the first item that has the specified field equals to the value', () => {
+        const list = [{field: 'value1'}, {field: 'value2'}, {field: 'value1'}];
+        expect(getFirstByFieldEquals(list, 'field', 'value1')).toEqual({field: 'value1'});
+    });
+
+});
+
+describe('sortByFieldAndOrder', () => {
+    test('should correctly sort the array in ascending order', () => {
+        const data = [{field: 3}, {field: 1}, {field: 2}];
+        expect(sortByFieldAndOrder(data, 'field', 'asce')).toEqual([{field: 1}, {field: 2}, {field: 3}]);
+    });
+
+    test('should correctly sort the array in descending order', () => {
+        const data = [{field: 3}, {field: 1}, {field: 2}];
+        expect(sortByFieldAndOrder(data, 'field', 'desc')).toEqual([{field: 3}, {field: 2}, {field: 1}]);
+    });
 });

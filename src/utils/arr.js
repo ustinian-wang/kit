@@ -13,7 +13,7 @@ export function array2Map(list = [], fieldOrHandler = '') {
     if (!isArray(list)) {
         list = [];
     }
-    list.forEach(item => {
+    list.forEach(function(item) {
         let value;
         if (isFunction(fieldOrHandler)) {
             value = fieldOrHandler(item);
@@ -28,41 +28,25 @@ export function array2Map(list = [], fieldOrHandler = '') {
 
     return obj;
 }
-
-/**
- * @description translate object to map struct eg: [{a:1},{a:2}] => {1:{a:1}, 2:{a:2}}
- * @param {Array} list
- * @param {string|function} uniqueFieldOrHandler
- * @returns {{}}
- */
-export const uniqueArray2Map = (list = [], uniqueFieldOrHandler = '') => {
-    let arrayMap = array2Map(list, uniqueFieldOrHandler);
-    let finalMap = {};
-    Object.keys(arrayMap).forEach(key => {
-        finalMap[key] = arrayMap[key][0];
-    });
-    return finalMap;
-};
-
 /**
  * collecting some field of item to generate list;
  * @param {array} itemList target list
  * @param {string} field
  * @returns {Array}
  */
-export const getFieldList = (itemList = [], field = '') => {
+export function getFieldList(itemList = [], field = '') {
     if (!isArray(itemList)) {
         itemList = [];
     }
 
-    return itemList.map(item => {
+    return itemList.map(function(item) {
         if (isObject(item) || isArray(item)) {
             return item[field];
         } else {
             return undefined;
         }
     });
-};
+}
 
 /**
  * @typedef {object} SplitListByConditionResult
@@ -75,13 +59,13 @@ export const getFieldList = (itemList = [], field = '') => {
  * @param {function} [predicate=noop]
  * @returns {SplitListByConditionResult}
  */
-export const splitListByCondition = (list, predicate = noop) => {
+export function splitListByCondition(list, predicate = noop) {
     let trueList = [];
     let falseList = [];
     if (!isArray(list)) {
         list = [];
     }
-    list.forEach(item => {
+    list.forEach(function(item) {
         if (isFunction(predicate) && predicate(item)) {
             trueList.push(item);
         } else {
@@ -93,7 +77,7 @@ export const splitListByCondition = (list, predicate = noop) => {
         trueList,
         falseList,
     };
-};
+}
 /**
  * @description get first item when field is equals with others in memory reference
  * @param {Array<object>} list
@@ -101,26 +85,17 @@ export const splitListByCondition = (list, predicate = noop) => {
  * @param {any} value
  * @returns {object|null}
  */
-export const getFirstByField = (list, field, value) => {
+export function getFirstByField(list, field, value) {
     if (!isArray(list)) {
         list = [];
     }
     if (!isString(field)) {
         field = '';
     }
-    return list.find(item => item[field] === value);
-};
-
-/**
- * @deprecated get first item when field is equals with others
- * @param {Array<object>} list
- * @param {string} field
- * @param {any} value
- * @returns {object|null}
- */
-export const getFirstByFieldEquals = (list, field, value) => {
-    return list.find(item => equals(item[field], value));
-};
+    return list.find(function(item) {
+        return item[field] === value;
+    });
+}
 
 /**
  * @description circleArray是普通数组，但是认为最后一位和前一位连为循环数组，然后在circleArrayIndex位置插入array，作为circleArray的元素，若circleArray和array的元素通过match函数进行匹配，则不进行替换，反之替换
@@ -152,7 +127,7 @@ export function insertArrayToCircleArray(options) {
         circleArrayIndex = circleArrayIndex - 1;
     }
 
-    array.forEach(item => {
+    array.forEach(function(item) {
         circleArrayIndex = fixArrayIndex(circleArray, circleArrayIndex);
 
         let originItem = circleArray[circleArrayIndex];
@@ -198,7 +173,7 @@ export function getElementsOfCircleArray(
  * @param {number} index
  * @returns {*}
  */
-export const fixArrayIndex = (array, index) => {
+export function fixArrayIndex(array, index) {
     if (!isArray(array)) {
         array = [];
     }
@@ -216,20 +191,22 @@ export const fixArrayIndex = (array, index) => {
         index = index - array.length;
     }
     return index;
-};
+}
 
 /**
  * @description is number array
  * @param {Array<any>} array
  * @returns {*}
  */
-export const isNumberArray = array => {
+export function isNumberArray(array) {
     return (
         isArray(array) &&
         array.length > 0 &&
-        array.every(item => isNumber(item))
+        array.every(function(item) {
+            return isNumber(item);
+        })
     );
-};
+}
 /**
  * @description 从数组里面删除某个元素
  * @param array
@@ -237,13 +214,46 @@ export const isNumberArray = array => {
  * @param value
  * @return {*}
  */
-export const removeElementsOfArray = (array, field, value) => {
-    let index = array.findIndex(item => item[field] === value);
+export function removeElementsOfArray(array, field, value) {
+    let index = array.findIndex(function(item) {
+        return item[field] === value;
+    });
     if (index !== -1) {
         array.splice(index, 1);
     }
     return array;
-};
+}
+
+
+
+/**
+ * @description translate object to map struct eg: [{a:1},{a:2}] => {1:{a:1}, 2:{a:2}}
+ * @param {Array} list
+ * @param {string|function} uniqueFieldOrHandler
+ * @returns {{}}
+ */
+export function uniqueArray2Map(list = [], uniqueFieldOrHandler = '') {
+    let arrayMap = array2Map(list, uniqueFieldOrHandler);
+    let finalMap = {};
+    Object.keys(arrayMap).forEach(function(key) {
+        finalMap[key] = arrayMap[key][0];
+    });
+    return finalMap;
+}
+
+/**
+ * @deprecated get first item when field is equals with others
+ * @param {Array<object>} list
+ * @param {string} field
+ * @param {any} value
+ * @returns {object|null}
+ */
+export function getFirstByFieldEquals(list, field, value) {
+    return list.find(function(item) {
+        return equals(item[field], value);
+    });
+}
+
 
 /**
  * @description 格局数组的某个字段进行排序

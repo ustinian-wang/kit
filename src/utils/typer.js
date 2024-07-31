@@ -1,4 +1,4 @@
-import { isEmptyObj } from "./func";
+import {isEmptyObj} from "./func";
 
 /**
  * @description whether value is array with numeric type
@@ -55,7 +55,7 @@ export function isMatch(object, source) {
  * @param value it must be an array value
  * @returns {boolean}
  */
-export const isEmptyArr = value => {
+export function isEmptyArr(value) {
     return isArray(value) && value.length === 0;
 };
 
@@ -64,7 +64,7 @@ export const isEmptyArr = value => {
  * @param obj
  * @return {boolean}
  */
-export const isEmptyObject = obj => {
+export function isEmptyObject(obj) {
     let name;
     for (name in obj) {
         return false;
@@ -201,19 +201,14 @@ export function isString(value) {
 
 // 该方法只能检查一个字符串是否看起来像是一个对象字符串，并不能确定该字符串是否可以正确解析为一个有效的 JSON 对象。
 // 如果需要对一个字符串进行完整的 JSON 格式验证，可以使用 JSON.parse() 方法并捕获异常来判断。
-export const isObjectString = str => {
+export function isObjectString(str) {
     // 首先，使用 typeof 判断字符串的类型是否为字符串
     if (typeof str !== 'string') {
         return false;
     }
 
     // 然后，判断字符串是否以 '{' 开始且以 '}' 结束
-    if (
-        str.trim().charAt(0) === '{' &&
-        str.trim().charAt(str.length - 1) === '}'
-    ) {
-        return true;
-    }
+    return str.trim().charAt(0) === '{' &&
+        str.trim().charAt(str.length - 1) === '}';
 
-    return false;
-};
+}

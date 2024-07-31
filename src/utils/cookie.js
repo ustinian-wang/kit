@@ -1,30 +1,35 @@
-import { get, set } from "tiny-cookie"
+import {get, set} from "tiny-cookie"
 
 /**
  * @description 设置cookie
  */
-export const setCookie = set
+export function setCookie() {
+    return set(...arguments)
+}
 
 /**
  * @description 读取cookie
+ * @returns {*}
  */
-export const getCookie = get
+export function getCookie() {
+    return get(...arguments);
+}
 
 /**
  * @description 读取cookie并且反序列化
- * @param key
- * @return {string}
+ * @param {string} key
+ * @return {*}
  */
-export const getObjCookie = (key) => {
+export function getObjCookie(key) {
     return get(key, JSON.parse)
-};
+}
 
 /**
  * @description 读取cookie并且序列化
- * @param key
- * @param value
- * @param options
+ * @param {string} key
+ * @param {*} value
+ * @param {object|undefined} options
  */
-export const setObjCookie = (key, value, options) => {
+export function setObjCookie(key, value, options) {
     return set(key, value, JSON.stringify, options)
-};
+}

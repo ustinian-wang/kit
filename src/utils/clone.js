@@ -29,7 +29,6 @@ export function cloneDeep(value) {
 
 /**
  * @description 递归深复制，比较靠谱，不用担心JSON.parse报错
- * @param { any } obj
  * @returns { any }
  */
 export function deepAssign() {

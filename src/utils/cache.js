@@ -7,7 +7,7 @@ import { jsonStringify, safeJsonParse } from './str.js';
 import { getter } from "./func";
 import { isObject } from "./typer";
 
-export const CacheFactory = (cache, lifeCycle) => {
+export function CacheFactory(cache, lifeCycle) {
     return {
         cache: cache,
 

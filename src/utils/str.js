@@ -156,7 +156,7 @@ export function objectToHttpString(value) {
  * @param {object} object { a: 1, b: 2}
  * @returns {string} a=1&b=2
  */
-export const objectToQueryString = object => {
+export function objectToQueryString  (object ) {
     return Object.keys(object)
         .map(key => {
             return `${key}=${object[key]}`;

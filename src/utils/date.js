@@ -112,7 +112,7 @@ export function parseDate(date) {
  * @param {string} month
  * @param {Date} date
  */
-export function toDate({ year, month, date }) {
+export function toDate({year, month, date}) {
     return new Date(year, month - 1, date);
 }
 
@@ -123,7 +123,7 @@ export function toDate({ year, month, date }) {
  * @param {string} date
  * @returns {string}
  */
-export function isADate({ year, month, date }) {
+export function isADate({year, month, date}) {
     return year && month && date;
 }
 
@@ -184,7 +184,7 @@ export function getToday() {
  * @param { number } time
  * @returns { string }
  */
-export const formatTimeToStr = time => {
+export function formatTimeToStr(time) {
     time = isNaN(time) ? 0 : parseInt(time);
     return time < 0 ? '00' : `${time < 10 ? `0` : ``}${time}`;
 };
@@ -215,8 +215,8 @@ export const getDateMap = {
  * @param { number } timestamp
  * @returns {getLeftTimeObjReturn}
  */
-export const getLeftTimeObj = timestamp => {
-    const { days, hours, minutes, seconds, allHours } = getDateMap;
+export function getLeftTimeObj(timestamp) {
+    const {days, hours, minutes, seconds, allHours} = getDateMap;
 
     return {
         days: formatTimeToStr(days(timestamp)),
@@ -232,10 +232,10 @@ export const getLeftTimeObj = timestamp => {
  * @param { number } time
  * @returns { boolean }
  */
-export const compareToNowTime = function (time) {
+export function compareToNowTime (time) {
     const nowTime = new Date();
     return time - nowTime.getTime();
-};
+}
 
 /**
  * @description 格式化时间
@@ -245,6 +245,7 @@ export const compareToNowTime = function (time) {
 function DateFormat() {
     return new DateFormat.prototype.init();
 }
+
 DateFormat.fn = DateFormat.prototype = {
     _default: {
         formatFn: function (date, pattern) {
@@ -337,7 +338,7 @@ const SECOND = 1000;
  */
 export const TimeDef = {
     SECOND: SECOND,
-    MINUTE: SECOND*60,
-    HOUR: SECOND*60*60,
-    DAY: SECOND*60*60*24,
+    MINUTE: SECOND * 60,
+    HOUR: SECOND * 60 * 60,
+    DAY: SECOND * 60 * 60 * 24,
 }

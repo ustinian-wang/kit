@@ -1,14 +1,14 @@
-import { safeJsonParse } from "./str.js";
-import { isArray, isObject, isString } from "./typer.js";
-import { cloneDeep, deepAssign } from "./clone.js";
-import { TimeDef } from "./date";
+import {safeJsonParse} from "./str.js";
+import {isArray, isObject, isString} from "./typer.js";
+import {cloneDeep, deepAssign} from "./clone.js";
+import {TimeDef} from "./date";
 
 /**
  * @description 格式化日期-时间
  * @param { Date } date
  * @returns { string }
  */
-export const formatTime = date => {
+export function formatTime(date) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -27,7 +27,7 @@ export const formatTime = date => {
  * @param { number } n
  * @returns { string }
  */
-export const formatNumber = n => {
+export function formatNumber(n) {
     n = n.toString();
     return n[1] ? n : '0' + n;
 }; //保留页面间的函数继承引用
@@ -125,7 +125,7 @@ export function promisify(api) {
  * @param {string} str
  * @returns {number}
  */
-export const getGbLen = str => {
+export function getGbLen(str) {
     let len = 0;
     for (let i = 0; i < str.length; i++) {
         if (str.charCodeAt(i) > 127 || str.charCodeAt(i) == 94) {
@@ -144,7 +144,7 @@ export const getGbLen = str => {
  * @param {boolean} [point=true]
  * @returns {string}
  */
-export const subGbStr = (str, index, point = true) => {
+export function subGbStr(str, index, point = true) {
     if (index >= getGbLen(str)) {
         return str;
     }
@@ -172,7 +172,7 @@ export const subGbStr = (str, index, point = true) => {
  * @param { number } lineNo
  * @returns { string }
  */
-export const divideGbStr2line = (str, lineMax, lineNo) => {
+export function divideGbStr2line(str, lineMax, lineNo) {
     const strLen = getGbLen(str);
 
     if (strLen <= lineMax) {
@@ -198,7 +198,7 @@ export const divideGbStr2line = (str, lineMax, lineNo) => {
  * @param { number } bitFlag
  * @returns { boolean }
  */
-export const checkBit = function (flag, bitFlag) {
+export function checkBit(flag, bitFlag) {
     /*
     因为js位操作有关的超过了32位后无效。所有位置0。第32位代表负数。且32位的左移1位就是直接跳回到第1位。  与java long类型移位操作不符。
     20131225修改  支持long 类型62位内的checkBit
@@ -330,17 +330,17 @@ export function decodeHtml(html) {
  * @param {*} html
  * @return {*}
  */
-export const encodeHtml = html => {
+export function encodeHtml(html) {
     return html && html.replace
         ? html
-              .replace(/&/g, '&amp;')
-              .replace(/ /g, '&nbsp;')
-              .replace(/\b&nbsp;+/g, ' ')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/\\/g, '&#92;')
-              // eslint-disable-next-line no-useless-escape
-              .replace(/\'/g, '&#39;')
+            .replace(/&/g, '&amp;')
+            .replace(/ /g, '&nbsp;')
+            .replace(/\b&nbsp;+/g, ' ')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\\/g, '&#92;')
+            // eslint-disable-next-line no-useless-escape
+            .replace(/\'/g, '&#39;')
               // eslint-disable-next-line no-useless-escape
               .replace(/\"/g, '&quot;')
               .replace(/\n/g, '<br/>')
@@ -357,13 +357,13 @@ export const encodeHtml = html => {
  * @param { number } complement
  * @returns { * }
  */
-export const formatDouble = (
+export function formatDouble(
     num,
     scale = 2,
     roundingMode = '',
     positive,
     complement = 2,
-) => {
+) {
     num = parseFloat(num);
 
     if (isNaN(num)) {
@@ -423,7 +423,7 @@ export const formatDouble = (
 };
 // 已迁移到utils/business/pages 目前productDetailv2分包下tools里有重名方法，但实现方式不同，结果是否相同待验证
 //针对普通价格
-export const dividePrice = function (price, index) {
+export function dividePrice(price, index) {
     if (price == '***') {
         //兼容没有价格权限的情况
         return index == 0 ? price : '';
@@ -445,7 +445,7 @@ export const dividePrice = function (price, index) {
  * @param {object|string} value
  * @returns {*}
  */
-export const toObject = function (value) {
+export function toObject(value) {
     if (isObject(value)) {
         return value;
     }
