@@ -19,5 +19,13 @@
   - [ ] 完善package.json
 - [ ] 代码文档上传到github pages
   - [x]  https://ustinian-wang.github.io/kit/
-  - [ ]  接入ci自动部署
+  - [ ] 接入ci自动部署
+    - [ ]  废弃docs分支
+    - [ ]  推送自动部署
+- [ ] 发包
+  - [ ]  自动发版本号
+  - [ ]  部署文档
+  - [ ]  推包
+- [ ]  了解软件的各种协议，以及MIT协议干嘛的
+- [ ]  
 
