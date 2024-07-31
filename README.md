@@ -1,18 +1,19 @@
-# `kit`
+# `@ustinian-wang/kit`
 
-- 鉴于多个项目有些工具函数，通用逻辑复用等诉求，提供此工具包
-- 基于lodash-es实现，如果lodash-es能满足需求，就不用在这里添加方法了
+## Introduction
+- 鉴于多个项目都有相似的工具函数，为了逻辑复用，提供此工具包
+- 如果lodash-es能满足需求，就不用在这里添加方法了
 
 ## Installation
 
 ```shell
-yarn add kit 
+yarn add @ustinian-wang/kit 
 ```
 
 ## Usage
 
 ```javascript
-import { cloneDeep } from "kit";
+import { cloneDeep } from "@ustinian-wang/kit";
 
 let oldObj = {
     a: 66
@@ -21,10 +22,11 @@ console.log( cloneDeep( oldObj ) );
 // TODO: DEMONSTRATE API
 ```
 
-## API
+## docs
 
+- <https://ustinian-wang.github.io/kit/>
 
-## 建议
+## suggestions
 
-有更多需要支持的方法可以提[issue];
+有更多需要支持的方法，可以提[issue](https://github.com/ustinian-wang/kit/issues/1);
 
