@@ -1,7 +1,8 @@
 # `@ustinian-wang/kit`
 
 ## Introduction
-- 鉴于多个项目都有相似的工具函数，为了逻辑复用，提供此工具包
+
+- 鉴于多个项目公共逻辑，封装提供了kit包，支持esm格式。
 - 如果lodash-es能满足需求，就不用在这里添加方法了
 
 ## Installation
@@ -28,5 +29,5 @@ console.log( cloneDeep( oldObj ) );
 
 ## suggestions
 
-有更多需要支持的方法，可以提[issue](https://github.com/ustinian-wang/kit/issues/1);
+如果你有想要支持的方法，可以提[issue](https://github.com/ustinian-wang/kit/issues/1);
 
