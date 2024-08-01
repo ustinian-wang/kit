@@ -1,5 +1,5 @@
 import {serializeObjParamOfGet} from "../src/request/interceptors.js";
-import {objectToQueryString} from "../src/utils/str.js";
+import {objectToQueryString} from "../src/utils/query.js";
 
 test.skip("serializeObjParamOfGet", ()=> {
     let params = serializeObjParamOfGet({

@@ -1,9 +1,26 @@
 /**
- * @description 将url解析
- * @param url
- * @return {{search: string, headOfUrl, hash: string}}
+ * @typedef {Object} ParsedUrl
+ * @property {string} search - query string of url
+ * @property {string} headOfUrl - The head part of the url like location.origin
+ * @property {string} hash - The hash part of the url. eg: #hash
  */
-export function parseUrl(url){
+import {getWindow} from "./env.js";
+import {getter} from "./obj.js";
+import {isString} from "./typer.js";
+
+/**
+ * @description parse url as object
+ * @param {string} url
+ * @return {ParsedUrl}
+ */
+export function parseUrl(url=""){
+    if(!isString(url)){
+        return {
+            headOfUrl: "",
+            search: "",
+            hash: ""
+        }
+    }
     let headOfUrl = url;
     let search = "";
     let hash = "";
@@ -31,12 +48,18 @@ export function parseUrl(url){
     }
 }
 
+/**
+ * @description parse options to url
+ * @param {ParsedUrl} options
+ * @returns {string} full url
+ */
 export function toUrl(options){
     let {
         headOfUrl,
         search,
         hash
-    } = options;
+    } = options || {};
+
 
     let url = headOfUrl;
     if(search){
@@ -49,7 +72,7 @@ export function toUrl(options){
 }
 
 /**
- * 获取url中的search参数
+ * @description get instance of URLSearchParams by parsing url
  * @param {string} url
  * @return {URLSearchParams}
  */
@@ -59,10 +82,14 @@ export function getUrlSearchParam(url) {
 }
 
 /**
- * 获取url中的get参数
+ * @description get query value from url by specified key
  * @param {string} url
- * @param {string} key
- * @return {string}
+ * @param {string} key query key
+ * @example
+ * let url = 'http://www.google.com?a=6';
+ * let value = getUrlParam('a');
+ * console.log(value);//'6'
+ * @return {string} query value
  */
 export function getUrlParam(url, key) {
     let searchParams = getUrlSearchParam(url);
@@ -70,20 +97,25 @@ export function getUrlParam(url, key) {
 }
 
 /**
- * 获取当前url中的get参数
+ * @description get query value from window.location.href
  * @param {string} key
  * @return {string}
  */
 export function getCurrUrlParam(key) {
-    return getUrlParam(location.href, key);
+    let url = getCurrentUrl();
+    return getUrlParam(url, key);
 }
 
 /**
- * 设置url中的get参数
+ * @description set query value of url
  * @param {string} url
  * @param {string} key
- * @param {any} value
- * @return {string}
+ * @param {*} value
+ * @example
+ * let url = 'http://google.com?a=2';
+ * url = setUrlParam(url, 'a', '6');
+ * console.log(url);//'http://google.com?a=6'
+ * @return {string} url with new query value
  */
 export function setUrlParam(url, key, value) {
     let res = parseUrl(url);
@@ -95,24 +127,44 @@ export function setUrlParam(url, key, value) {
 }
 
 /**
- * 设置当前url中的get参数
+ * @description get query value of window.location.href
  * @param {string} key
  * @param {string} value
  * @return {string}
  */
 export function setCurrUrlParam(key, value) {
-    return setUrlParam(location.href, key, value);
+    let url = getCurrentUrl();
+    return setUrlParam(url, key, value);
 }
 
+function getCurrentUrl(){
+    let window = getWindow();
+    return getter(window, 'location.href');
+}
+
+/**
+ * @description set random query value to url by specified key
+ * @param {string} url
+ * @param {string} key
+ * @returns {string}
+ */
 export function setUrlRandomParam(url, key) {
     return setUrlParam(url, key, Math.random());
 }
 
 /**
- * @description 用params设置url中的get参数
+ * @description set some query values to url
  * @param url
- * @param params
- * @return {*}
+ * @param {object} params query string object
+ * @example
+ * var params = {
+ *     a: 11,
+ *     b: 22
+ * }
+ * var url = 'http://google.com?a=1&b=2';
+ * url = setQueryParam(url, params);
+ * console.log(url); //'http://google.com?a=11&b=22'
+ * @return {string}
  */
 export function setUrlParams(url, params={}){
     let nowUrl = url
@@ -124,13 +176,13 @@ export function setUrlParams(url, params={}){
 }
 
 /**
- * @description 判断字符串是否为url
- * @param url
+ * @description check if the value is url
+ * @param {string} value
  * @return {boolean}
  */
-export function isUrl(url) {
+export function isUrl(value) {
     try {
-        new URL(url);
+        new URL(value);
         return true;
     } catch (e) {
         return false;
@@ -138,16 +190,16 @@ export function isUrl(url) {
 }
 
 /**
- * @description 判断是否为绝对路径
- * @param {String} url url
+ * @description check if value is a absolute url
+ * @param {String} value url
  * @return {Boolean} 是否为绝对路径
  */
-export function isAbsoluteURL( url ) {
+export function isAbsoluteUrl(value ) {
     // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
     // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
     // by any combination of letters, digits, plus, period, or hyphen.
-    if ( typeof url === 'string' ) {
-        return /^([a-z][a-z\d+\-.]*:)?\/\//i.test( url )
+    if ( typeof value === 'string' ) {
+        return /^([a-z][a-z\d+\-.]*:)?\/\//i.test( value )
     } else {
         return false
     }

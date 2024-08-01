@@ -1,16 +1,19 @@
 import {isNumber, isString} from "./typer";
 
 /**
- * translate '1' into '01'
- * @param {number} i
+ * @description add leading zero if value <10
+ * @param {number} value
  * @returns {string}
  */
-export function addZero(i) {
-    return i < 10 ? '0' + i : i + '';
+export function padZero(value) {
+    if(!isNumber(value)){
+        return "00";
+    }
+    return value < 10 ? '0' + value : value + '';
 }
 
 /**
- * value can't includes some values
+ * @description value can't includes some values
  * @param {string} value
  * @returns {boolean}
  */
@@ -40,9 +43,9 @@ function isNormalStr(value = '') {
 }
 
 /**
- * value is normal event name
- * @param value
- * @returns {*}
+ * @description check if value is normal event name like 'click.myEvent' with jQuery event name style
+ * @param {string} value
+ * @returns {boolean}
  */
 export function isNormalEventName(value) {
     if (!isString(value)) {
@@ -53,10 +56,10 @@ export function isNormalEventName(value) {
 }
 
 /**
- * a function like css's ellipsis
+ * @description a function like css's ellipsis
  * @param {string} text
  * @param {number} maxNum
- * @returns {string|*}
+ * @returns {string}
  */
 export function ellipsis(text, maxNum) {
     if (!isString(text)) {
@@ -74,8 +77,8 @@ export function ellipsis(text, maxNum) {
 }
 
 /**
- * determine if the value is json
- * @param str
+ * @description check if the value is json string
+ * @param {string} str
  * @returns {boolean}
  */
 export function isJSON(str) {
@@ -140,39 +143,47 @@ export function jsonStringify(object, defaultValue = void 0, extArgs = {}) {
 }
 
 /**
- * translate value to string when value is object type
- * @param {any} value
- * @returns {string}
+ * @description compute string length including Chinese and English chars
+ * @param {string} str
+ * @returns {number}
  */
-export function objectToHttpString(value) {
-    if (isString(value)) {
-        return value;
+export function getGbLen(str) {
+    if(!isString(str)){
+        return 0;
     }
-    return jsonStringify(value);
+    let len = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (str.charCodeAt(i) > 127 || str.charCodeAt(i) === 94) {
+            len += 2;
+        } else {
+            len++;
+        }
+    }
+    return len;
 }
 
 /**
- * @description convert object to query string
- * @param {object} object { a: 1, b: 2}
- * @returns {string} a=1&b=2
+ * @description slice specified length of string with EN, CN chars
+ * @param {string} str
+ * @param {number} index
+ * @param {boolean} [point=true]
+ * @returns {string}
  */
-export function objectToQueryString  (object ) {
-    return Object.keys(object)
-        .map(key => {
-            return `${key}=${object[key]}`;
-        })
-        .join('&');
-};
+export function subGbStr(str, index, point = true) {
+    if (index >= getGbLen(str)) {
+        return str;
+    }
 
-/**
- * @description get simple performance of big number
- * @param {number} value
- * @return {string}
- */
-export function round10000Int2Str(value) {
-    if (value < 10000) {
-        return value + '';
+    let rtStr = '';
+    for (let i = 0, count = 0; count < index; i++, count++) {
+        rtStr += str[i];
+        if (str.charCodeAt(i) > 127 || str.charCodeAt(i) === 94) {
+            count++;
+        }
+    }
+    if (point) {
+        return rtStr + '...';
     } else {
-        return Math.round((value / 10000) * 100) / 100 + '万';
+        return rtStr;
     }
 }

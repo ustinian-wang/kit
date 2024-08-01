@@ -29,3 +29,54 @@
 - [ ]  了解软件的各种协议，以及MIT协议干嘛的
 - [ ]  
 
+
+
+## 代码优化
+
+- [ ] DateFormatFactory
+- [x] colorToHex
+- [x] add:x:
+- [x] addPageQuery:x:
+- [x] awaitPromiseRes
+- [x] compareToNow:
+  - [ ] test case
+- [x] convertMimes
+- [x] dateFormat
+- [x] divideGbStr2line
+- [x] formatDate
+- [x] formatDouble
+- [x] formatNumber
+- [x] formatTime
+- [x] formatTimeToStr
+- [x] getDateMap
+- [x] getFirstByFieldEquals
+- [x] getGbLen
+- [x] getLeftTimeInfo
+- [x] getToday
+- [x] getDayOfMonth
+- [x] getDaysBetween
+- [x] isParsedDate
+- [x] isBizNull
+- [x] isEmptyObj
+- [x] isEmptyObject:x:
+- [x] isNormalEventName
+- [x] isNormalStr
+- [x] isNumberArray
+- [x] isObjectString
+- [x] isStringArray
+- [x] objectToQueryString
+- [x] padZero
+- [x] parseDate
+- [x] parseJSON:x:
+- [x] parseDateStr
+- [x] pxToRpx
+- [x] queryObject2String
+- [x] queryString2Object
+- [x] selectOSFile
+- [x] setObjCookie
+- [x] splitArrayByPredicate
+- [x] subGbStr
+- [x] toDate
+- [x] toObject
+  - [ ] test case
+- [x] toUrl

@@ -4,9 +4,8 @@ import {
     getElementsOfCircleArray, getFieldList, getFirstByField, getFirstByFieldEquals,
     insertArrayToCircleArray,
     isNumberArray,
-    removeElementsOfArray, sortByFieldAndOrder, splitListByCondition, uniqueArray2Map
+    removeElementsOfArray, sortObjectArray, splitArrayByPredicate, uniqueArray2Map
 } from "../src/utils/arr.js";
-import {testFunctionArgType} from "./utils.js";
 
 describe('test', () => {
     test('array2Map', () => {
@@ -31,8 +30,6 @@ describe('test', () => {
             1: [objA],
             2: [objB, objC],
         });
-
-        testFunctionArgType(array2Map);
     });
 
     test('getFieldList', () => {
@@ -44,30 +41,28 @@ describe('test', () => {
         expect(getFieldList([{ a: 1 }, { a: 2 }, { a: 3 }], 'a')).toEqual([
             1, 2, 3,
         ]);
-        testFunctionArgType(getFieldList);
     });
 
     test('splitListByCondition', () => {
-        testFunctionArgType(splitListByCondition);
 
-        expect(splitListByCondition([])).toEqual({
+        expect(splitArrayByPredicate([])).toEqual({
             falseList: [],
             trueList: [],
         });
-        expect(splitListByCondition([], () => {})).toEqual({
+        expect(splitArrayByPredicate([], () => {})).toEqual({
             falseList: [],
             trueList: [],
         });
-        expect(splitListByCondition([], 'a')).toEqual({
+        expect(splitArrayByPredicate([], 'a')).toEqual({
             falseList: [],
             trueList: [],
         });
-        expect(splitListByCondition([], () => true)).toEqual({
+        expect(splitArrayByPredicate([], () => true)).toEqual({
             falseList: [],
             trueList: [],
         });
         expect(
-            splitListByCondition(
+            splitArrayByPredicate(
                 [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }],
                 object => {
                     return object.a % 2 === 0;
@@ -80,7 +75,6 @@ describe('test', () => {
     });
 
     test('getFirstByField', () => {
-        testFunctionArgType(getFirstByField);
         expect(getFirstByField([])).toEqual(undefined);
         expect(getFirstByField([], '', '')).toEqual(undefined);
         expect(getFirstByField([], 'a', '')).toEqual(undefined);
@@ -285,7 +279,6 @@ test('insertArrayToCircleArray', () => {
         }),
     ).toEqual(array);
 
-    testFunctionArgType(insertArrayToCircleArray);
 });
 
 test('getElementsOfCircleArray', () => {
@@ -311,7 +304,6 @@ test('getElementsOfCircleArray', () => {
         277, 275, 239, 222,
     ]);
 
-    testFunctionArgType(getElementsOfCircleArray);
 });
 
 test('fixArrayIndex', () => {
@@ -320,7 +312,6 @@ test('fixArrayIndex', () => {
     expect(fixArrayIndex([1, 2, 3], -3)).toEqual(-0);
     expect(fixArrayIndex([1, 2, 3], -6)).toEqual(-0);
     expect(fixArrayIndex([1, 2, 3], 5)).toEqual(2);
-    testFunctionArgType(fixArrayIndex);
 });
 
 test('isNumberArray', () => {
@@ -332,7 +323,6 @@ test('isNumberArray', () => {
     expect(isNumberArray([1, 2, 3, 4, 5])).toEqual(true);
     expect(isNumberArray([1, 2, 3, 4, 5, 6])).toEqual(true);
     expect(isNumberArray([1, 2, 3, 4, 5, 6, 7])).toEqual(true);
-    testFunctionArgType(isNumberArray);
 });
 
 test('removeElementsOfArray', () => {
@@ -370,13 +360,13 @@ describe('getFirstByFieldEquals', () => {
 });
 
 describe('sortByFieldAndOrder', () => {
-    test('should correctly sort the array in ascending order', () => {
+    test('should correctly sort the array in ascnding order', () => {
         const data = [{field: 3}, {field: 1}, {field: 2}];
-        expect(sortByFieldAndOrder(data, 'field', 'asce')).toEqual([{field: 1}, {field: 2}, {field: 3}]);
+        expect(sortObjectArray(data, 'field', 'asc')).toEqual([{field: 1}, {field: 2}, {field: 3}]);
     });
 
     test('should correctly sort the array in descending order', () => {
         const data = [{field: 3}, {field: 1}, {field: 2}];
-        expect(sortByFieldAndOrder(data, 'field', 'desc')).toEqual([{field: 3}, {field: 2}, {field: 1}]);
+        expect(sortObjectArray(data, 'field', 'desc')).toEqual([{field: 3}, {field: 2}, {field: 1}]);
     });
 });

@@ -1,4 +1,5 @@
 import { isUrl } from "./url";
+import {isString} from "./typer.js";
 
 /**
  * @description 解析文件后缀名，而且会强制转换小写，例如有的客户会jpg改为JPG等非法文件,导致后端接口失败
@@ -6,6 +7,9 @@ import { isUrl } from "./url";
  * @return {string}
  */
 export function getFileExtension(filename) {
+    if(!isString(filename)){
+        return "";
+    }
     if(!filename.includes(".")){
         return "";
     }
@@ -24,7 +28,7 @@ export function getFileExtension(filename) {
  * @return {string}
  */
 export function getUrlFileExtension(url) {
-    if(!url){
+    if(!isString(url)){
         return "";
     }
     // 使用内置的URL对象来解析URL

@@ -1,4 +1,12 @@
-import { getUrlParam, getUrlSearchParam, parseUrl, setUrlParam, setUrlRandomParam, toUrl } from "../src/utils/url.js";
+import {
+    getUrlParam,
+    getUrlSearchParam,
+    isAbsoluteUrl,
+    parseUrl,
+    setUrlParam,
+    setUrlRandomParam,
+    toUrl
+} from "../src/utils/url.js";
 
 test("parseUrl", () => {
 expect(parseUrl("http://www.baidu.com")).toEqual({
@@ -103,3 +111,21 @@ test("setUrlRandomParam", ()=>{
     let newUrl = setUrlRandomParam(url);
     expect(newUrl).not.toBe(url);
 })
+
+describe('isAbsoluteURL', () => {
+    it('should return true for absolute URLs', () => {
+        expect(isAbsoluteUrl('http://example.com')).toBe(true);
+        expect(isAbsoluteUrl('https://example.com')).toBe(true);
+        expect(isAbsoluteUrl('//example.com')).toBe(true);
+    });
+
+    it('should return false for non-absolute URLs', () => {
+        expect(isAbsoluteUrl('example.com')).toBe(false);
+        expect(isAbsoluteUrl('/example')).toBe(false);
+        expect(isAbsoluteUrl(123)).toBe(false);
+        expect(isAbsoluteUrl(null)).toBe(false);
+        expect(isAbsoluteUrl(undefined)).toBe(false);
+        expect(isAbsoluteUrl({})).toBe(false);
+        expect(isAbsoluteUrl([])).toBe(false);
+    });
+});

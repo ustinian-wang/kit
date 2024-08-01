@@ -1,90 +1,163 @@
-
-import {isNumber, isString, isObject} from "./typer";
+import {isArray, isFunction, isObject, isString, isUndefined} from "./typer.js";
+import {cloneDeep, deepAssign} from "./clone.js";
+import {jsonParse, jsonStringify, safeJsonParse} from "./str.js";
+import {noop} from "./other.js";
 
 /**
- * @description get price of product by alias field
- * @example
- * getAliasValue4Price(product, 'price', -1);
- * getAliasValue4Price(product, 'childInfo.price', -1);
- * @param {object} obj
- * @param {string} alias
- * @param {*} defaultValue
- * @return {*|number}
+ * @param value
+ * @returns {any}
  */
-export function getAliasValue4NumberCalculate(obj, alias, defaultValue) {
-    if (!isString(alias)) {
-        return 0;
-    }
-    let isExpress = (alias || '').includes('+');
-
-    if (isExpress) {
-        let parts = alias.split('+');
-
-        if (parts.length >= 2) {
-            let value = 0;
-            parts.forEach(part => {
-                let partValue = getAliasValue4KeyPath(obj, part.trim(), 0);
-                if (isNumber(partValue) && !isNaN(partValue)) {
-                    value += partValue;
-                }
-            });
-            return value;
-        }
-    }
-
-    return getAliasValue4KeyPath(obj, alias, defaultValue);
+export const cloneByJSON = (value)=>{
+    return jsonParse(jsonStringify(value));
 }
 
 /**
- * @description get price of product by alias field
- * @example
- *  getAliasValue(product, 'price', -1);
+ * @description
  * @param {object} obj
- * @param {string} alias
- * @param {*} defaultValue
- * @return {*}
+ * @param {string} key
+ * @param {*} value
+ * @returns {*}
  */
-export function getAliasValue(obj, alias, defaultValue = undefined) {
-    if (!isObject(obj)) {
+export function setter(obj, key='', value) {
+    if(!isObject(obj)){
         return;
     }
-    let value = obj[alias];
-
-    if (value !== void 0) {
-        return value;
+    let originObj = obj;
+    let keyPath = key.split('.'); //a.b.c = 2
+    let abovePart = keyPath.slice(0, keyPath.length - 1);
+    let lastPart = keyPath[keyPath.length - 1];
+    for (let keyPart of abovePart) {
+        let objValue = obj[keyPart];
+        if (!isObject(objValue)) {
+            obj[keyPart] = {};
+        }
+        obj = obj[keyPart];
     }
+    obj[lastPart] = value;
+    return originObj;
+}
 
-    return defaultValue;
-} //支持a.b.c的语法
+export function eachObject(obj={}, callback=noop, prePath = '') {
+
+    callback(prePath, obj);
+    if (isObject(obj)) {
+        if (isArray(obj)) {
+            obj.forEach((item, index) => {
+                eachObject(item, callback, `${prePath}[${index}]`);
+            });
+        } else {
+            Object.keys(obj).forEach(key => {
+                let value = obj[key];
+                eachObject(
+                    value,
+                    callback,
+                    `${prePath ? prePath + '.' : prePath}${key}`,
+                );
+            });
+        }
+    }
+}
+
+export function getCombinationOfObject(obj, objDef) {
+    let pathObj = {};
+    /**
+     * {
+     *     a: [],
+     *     b: [],
+     *     c: [],
+     *     d: []
+     * }
+     */
+    eachObject(objDef, (path, value) => {
+        if (isArray(value)) {
+            //拿到数组，说明拿到范围值
+            pathObj[path] = value;
+        }
+    });
+
+    let paths = Object.keys(pathObj);
+    let arrays = paths.map(path => pathObj[path]);
+    let combinations = getCombination(arrays);
+    return combinations.map(result => {
+        let tmpObj = {};
+        paths.forEach((path, index) => {
+            let value = result[index];
+            let key = path;
+            setter(tmpObj, key, value);
+        });
+        return deepAssign(cloneDeep(obj), tmpObj);
+    });
+}
+
 /**
- * @description get price of product by alias field, and support special grammar such as a.b.c
+ * @description 生成多个数组的组合列表。
+ * @param {Array<Array<*>>} arrays - 一个数组的数组，每个数组代表一组可选元素。
+ * @returns {Array<Array<*>>} - 返回一个包含所有可能组合的数组。
  * @example
- * getAliasValue4KeyPath({a:{b:{c:3}}}, 'a.b.c', -1);
- * @param {object} obj
- * @param {string} alias
- * @param {*} defaultValue
- * @return {*}
+ * <pre>
+ *     // 示例用法
+ *     let combos = getCombination([
+ *         [1, 2],
+ *         [3, 4],
+ *         [5, 6]
+ *     ]);
+ *
+ *     console.log(combos); // [[1, 3, 5], [1, 3, 6], [1, 4, 5], [1, 4, 6], [2, 3, 5], [2, 3, 6], [2, 4, 5], [2, 4, 6]]
+ * </pre>
  */
-export function getAliasValue4KeyPath(obj, alias, defaultValue) {
-    if (!isString(alias)) {
-        return;
-    }
-    let keyPath = (alias || '').split('.');
-    let value = defaultValue;
+function getCombination(arrays) {
+    let result = [];
 
-    for (let i = 0; i < keyPath.length; i++) {
-        let key = keyPath[i];
-        value = getAliasValue(obj, key);
-        obj = value;
-
-        if (value === void 0) {
-            return defaultValue;
+    function helper(combination, index) {
+        if (index === arrays.length) {
+            result.push(combination);
+        } else {
+            for (let i = 0; i < arrays[index].length; i++) {
+                helper([...combination, arrays[index][i]], index + 1);
+            }
         }
     }
 
-    return value;
-} // 通过别名获取价格
+    helper([], 0);
+    return result;
+}
 
-export const cloneByJSON = (value)=>{
-    return JSON.parse(JSON.stringify(value));
+/**
+ * @description translate value to object if value is type of object
+ * @param {object|string} value
+ * @returns {*}
+ */
+export function toObject(value) {
+    if (isObject(value)) {
+        return value;
+    }
+    return safeJsonParse(value || '{}');
+}
+
+/**
+ * @description read data's key
+ * @param {object} obj
+ * @param {string} path //eg: a.b.c
+ * @param {any} [defaultValue=undefined]
+ * @returns {any}
+ */
+export function getter(obj, path='', defaultValue = undefined) {
+    if (!isObject(obj) || !isString(path)) {
+        return defaultValue;
+    }
+    const props = path.split(".");
+    let result = obj;
+    for (const prop of props) {
+        const isArrayIndex = /\[\d+\]/.test(prop);
+        if (isArrayIndex) {
+            const index = parseInt(prop.match(/\d+/)[0]);
+            result = result[index];
+        } else {
+            result = result[prop];
+        }
+        if (result === undefined) {
+            return defaultValue;
+        }
+    }
+    return result;
 }

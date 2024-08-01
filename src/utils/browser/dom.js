@@ -3,57 +3,42 @@
  * @param {string} tagName node tag name
  * @return {HTMLElement}
  */
+import {getWindow} from "../env.js";
+import {isObject, isString} from "../typer.js";
+
+/**
+ * @description create Node and insert it into body
+ * @param {string} [tagName='div]
+ * @returns {HTMLDivElement}
+ */
 export function createNodeInDocumentBody(tagName = 'div') {
-    let dom = document.createElement(tagName);
-    let nowFloat = performance.now();
-    dom.id = 'MM' + parseInt(nowFloat.toFixed(11).replace('.', ''));
-    document.body.appendChild(dom);
-    return dom;
+    let window = getWindow();
+    if(window && document){
+        let dom = document.createElement(tagName);
+        let nowFloat = performance.now();
+        dom.id = 'MM' + parseInt(nowFloat.toFixed(11).replace('.', ''));
+        document.body.appendChild(dom);
+        return dom;
+    }
 }
 
 /**
  * @description 创建一个vue实例并且插入到body里面
  * @param {object} component
  * @param {object} options
- * @return {VNode}
+ * @return {VNode|undefined}
  */
 export function renderVueComponentInDocumentBody(component, options) {
     let dom = createNodeInDocumentBody();
-    return new global.Vue({
-        el: `#${dom.id}`,
-        store: window.$store,
-        render(h) {
-            return h(component, options);
-        },
-    });
-}
-
-/**
- * 异步挂载地图
- * @param {function} callback
- */
-export function asyncLoadQQMapScript() {
-    const id = 'qqMapScript';
-    if (document.getElementById(id)) {
-        console.log('已经引入腾讯地图脚本');
-        return;
+    if(dom){
+        return new global.Vue({
+            el: `#${dom.id}`,
+            store: window.$store,
+            render(h) {
+                return h(component, options);
+            },
+        });
     }
-
-    // 加载腾讯地图
-    let script = document.createElement('script');
-    const qqMapKey = window.$store.getters['commData/getQQMapKey'];
-    script.type = 'text/javascript';
-    script.id = id;
-    script.src = `https://map.qq.com/api/js?v=2.exp&key=${qqMapKey}&callback=Fai.updateLoadMap`;
-    document.body.appendChild(script);
-
-    // 引入封装好的JS模块，调起前端定位组件，通过封装好的接口获取位置信息。
-    // 说明文案： https://lbs.qq.com/webApi/component/componentGuide/componentGeolocation
-    let geoLocationScript = document.createElement('script');
-    geoLocationScript.src =
-        'https://mapapi.qq.com/web/mapComponents/geoLocation/v/geolocation.min.js';
-    geoLocationScript.id = 'geoLocationScript';
-    document.body.appendChild(geoLocationScript);
 }
 
 /**
@@ -63,6 +48,12 @@ export function asyncLoadQQMapScript() {
  * @returns {undefined}
  */
 export function setSelectorOfDOM(dom, selector) {
+    if(!isObject(dom) || !isString(selector)){
+        return;
+    }
+    if(!getWindow()){
+        return;
+    }
     selector = selector.trim();
     if (selector.startsWith('#')) {
         dom.id = selector.substring(1);
@@ -80,12 +71,14 @@ export function setSelectorOfDOM(dom, selector) {
  * @returns {undefined}
  */
 export function bindNativeEvent(element, eventName, eventHandler) {
-    if (element.addEventListener) {
-        element.addEventListener(eventName, eventHandler, false);
-    } else if (element.attachEvent) {
-        element.attachEvent('on' + eventName, eventHandler);
-    } else {
-        element['on' + eventName] = eventHandler;
+    if(element){
+        if (element.addEventListener) {
+            element.addEventListener(eventName, eventHandler, false);
+        } else if (element.attachEvent) {
+            element.attachEvent('on' + eventName, eventHandler);
+        } else {
+            element['on' + eventName] = eventHandler;
+        }
     }
 }
 
@@ -95,8 +88,9 @@ export function bindNativeEvent(element, eventName, eventHandler) {
  * @param {HTMLElement} node
  */
 export function removeNode(container, node) {
+    let window = getWindow();
     if (!container) {
-        container = document.body;
+        container = window?.document?.body;
     }
 
     if (node && container.contains(node)) {

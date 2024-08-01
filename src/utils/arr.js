@@ -1,10 +1,10 @@
-import {equals, noop} from "./func.js";
-import { isFunction, isArray, isNumber, isString, isObject } from "./typer";
-import { cloneDeep,  } from "./clone";
+import {equals, isArray, isFunction, isNumber, isObject, isString} from "./typer";
+import {cloneDeep,} from "./clone";
+import {noop} from "./other.js";
 
 /**
- * @description translate array to map struct
- * @param {array} list
+ * @description group map by field or handler to map object
+ * @param {array<*>} list
  * @param {string | function} fieldOrHandler
  * @returns {object}
  */
@@ -29,7 +29,7 @@ export function array2Map(list = [], fieldOrHandler = '') {
     return obj;
 }
 /**
- * collecting some field of item to generate list;
+ * @description collecting some field of item to generate list;
  * @param {array} itemList target list
  * @param {string} field
  * @returns {Array}
@@ -59,7 +59,7 @@ export function getFieldList(itemList = [], field = '') {
  * @param {function} [predicate=noop]
  * @returns {SplitListByConditionResult}
  */
-export function splitListByCondition(list, predicate = noop) {
+export function splitArrayByPredicate(list, predicate = noop) {
     let trueList = [];
     let falseList = [];
     if (!isArray(list)) {
@@ -98,15 +98,18 @@ export function getFirstByField(list, field, value) {
 }
 
 /**
- * @description circleArray是普通数组，但是认为最后一位和前一位连为循环数组，然后在circleArrayIndex位置插入array，作为circleArray的元素，若circleArray和array的元素通过match函数进行匹配，则不进行替换，反之替换
+ * @description insert elements to circle array
  * @param {Object} options
- * @param {Array<any>} options.circleArray
+ * @param {Array<any>} options.circleArray the last is previous of the first in logic
  * @param {Array<any>} options.array
  * @param {number} [options.circleArrayIndex=0]
  * @param {Function} options.match
  * @returns {Array<any>}
  */
-export function insertArrayToCircleArray(options) {
+export function insertArrayToCircleArray(options = {}) {
+    if(!isObject(options)) {
+        options = {};
+    }
     let {
         circleArray = [],
         array = [],
@@ -199,22 +202,34 @@ export function fixArrayIndex(array, index) {
  * @returns {*}
  */
 export function isNumberArray(array) {
-    return (
-        isArray(array) &&
-        array.length > 0 &&
-        array.every(function(item) {
-            return isNumber(item);
-        })
-    );
+    return isTypeArray(array, isNumber);
 }
+
+export function isArrayWithElements(array){
+    return isArray(array) && array.length>0;
+}
+
 /**
- * @description 从数组里面删除某个元素
- * @param array
- * @param field
- * @param value
- * @return {*}
+ * @description is array with elements that match typeExpect
+ * @param {array} value
+ * @param {function} typeExpect
+ * @returns {*}
+ */
+export function isTypeArray(value, typeExpect=noop) {
+    return isArrayWithElements(value) && value.every( typeExpect);
+}
+
+/**
+ * @description remove specified element from array
+ * @param {array<object>} array
+ * @param {string} field
+ * @param {*} value
+ * @return {array<object>}
  */
 export function removeElementsOfArray(array, field, value) {
+    if(!isArrayWithElements(array) || !isString(field)) {
+        return array;
+    }
     let index = array.findIndex(function(item) {
         return item[field] === value;
     });
@@ -242,13 +257,13 @@ export function uniqueArray2Map(list = [], uniqueFieldOrHandler = '') {
 }
 
 /**
- * @deprecated get first item when field is equals with others
+ * @description get first item when field is equals with others
  * @param {Array<object>} list
- * @param {string} field
- * @param {any} value
- * @returns {object|null}
+ * @param {string} [field='']
+ * @param {*} value
+ * @returns {object|undefined}
  */
-export function getFirstByFieldEquals(list, field, value) {
+export function getFirstByFieldEquals(list=[], field='', value) {
     return list.find(function(item) {
         return equals(item[field], value);
     });
@@ -256,16 +271,19 @@ export function getFirstByFieldEquals(list, field, value) {
 
 
 /**
- * @description 格局数组的某个字段进行排序
- * @param data
- * @param field
- * @param order
+ * @description sort array by field
+ * @param {Array<object>} data
+ * @param {string} field
+ * @param {string} order desc, asc. default is desc
  * @return {*}
  */
-export function sortByFieldAndOrder(data, field, order) {
+export function sortObjectArray(data, field, order='desc') {
+    if(!isTypeArray(data, isObject) || !isString(field)) {
+        return;
+    }
     // 比较函数根据指定字段和排序方式定义排序规则
     function compare(a, b) {
-        if (order === 'asce') {
+        if (order === 'asc') {
             if (a[field] < b[field]) {
                 return -1;
             } else if (a[field] > b[field]) {
@@ -285,4 +303,13 @@ export function sortByFieldAndOrder(data, field, order) {
     data.sort(compare);
 
     return data;
+}
+
+/**
+ * @description check if value is array with string type
+ * @param {*} value
+ * @returns {boolean}
+ */
+export function isStringArray(value) {
+    return isTypeArray(value, isString);
 }

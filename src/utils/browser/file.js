@@ -7,13 +7,19 @@
  * @property {string} type 文件类型，如 "image/png"
  * @property {string} webkitRelativePath 文件在webkit内核下的系统路径
  * */
+import {isArray, isObject} from "../typer.js";
+import {getter} from "../obj.js";
+import {getWindow} from "../env.js";
+import {isArrayWithElements, isStringArray} from "../arr.js";
+
 /**
  * @param {object} options
  * @param {Array<string>} [options.fileTypeList=[]] 文件类型
  * @return {Promise<Array<BrowserFileDef>>}
  */
 export const openFileSelectionWindow = options => {
-    return selectOSFile(options.fileTypeList, true);
+    let fileTypeList = getter(options, "fileTypeList");
+    return selectOSFile(fileTypeList, true);
 };
 
 /**
@@ -22,7 +28,8 @@ export const openFileSelectionWindow = options => {
  * @return {Promise<BrowserFileDef>}
  */
 export const openOneFileSelectionWindow = options => {
-    return selectOSFile(options.fileTypeList, false);
+    let fileTypeList = getter(options, "fileTypeList", []);
+    return selectOSFile(fileTypeList, false);
 };
 /**
  * @description 从windows资源管理器选择文件
@@ -31,8 +38,12 @@ export const openOneFileSelectionWindow = options => {
  * @return {Promise<Array<BrowserFileDef>>}
  */
 const selectOSFile = async (fileTypeList=[], multiple=false)=>{
+    fileTypeList = isArray(fileTypeList) ? fileTypeList : [];
     fileTypeList = convertMimes(fileTypeList)
     return new Promise(resolve => {
+        if(!getWindow()){
+            return resolve();
+        }
         // let { fileTypeList } = options;
         // fileTypeList = fileTypeList || [];
         const fileInputEle = document.createElement('input');
@@ -61,15 +72,15 @@ const selectOSFile = async (fileTypeList=[], multiple=false)=>{
 }
 
 /**
- * @description 对不同形式的mime进行转换，给底层的文件系统使用
+ * @description convert mime shorthand to completed mime. mime will be filtered if it is invalid
  * @param {Array<string>} mimeList # ['jpg', 'png', ...]
- * @return {Array<string>}
+ * @return {Array<string>} ['image/jpg', 'image/png', ...]
  */
 export function convertMimes(mimeList) {
     mimeList = completeMime(mimeList)
     return mimeList.map(mime=>{
         return MimeDef[mime] ? MimeDef[mime] : mime
-    });
+    }).filter(Boolean);
 }
 
 /**
@@ -77,6 +88,12 @@ export function convertMimes(mimeList) {
  * @param {Array<String>} mimeList
  */
 export const completeMime = ( mimeList=[])=>{
+    if(!isArray(mimeList)){
+        return [];
+    }
+    if(isArrayWithElements(mimeList) && !isStringArray(mimeList)){
+        return [];
+    }
     //避免出现要求jpeg，但是调用方传入JpeG, JPeg
     mimeList = [...mimeList].map(value=>value.toLowerCase());
 

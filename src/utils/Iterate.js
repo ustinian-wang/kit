@@ -1,6 +1,4 @@
-// import {isArray} from "lodash-es";
-
-import { isArray } from "./typer";
+import {isArray, isFunction, isObject} from "./typer";
 
 /**
  *  统一迭代方法，可以迭代对象或者数组
@@ -9,10 +7,13 @@ import { isArray } from "./typer";
  * @param { Function } fn callback
  * @return { void } 无返回值
  */
-function forEach(obj, fn) {
+export function forEach(obj, fn) {
     // Don't bother if no value provided
-    if (obj === null || typeof obj === 'undefined') {
+    if (!isObject(obj) && !isArray(obj)) {
         return;
+    }
+    if(!isFunction(fn)){
+        return
     }
 
     // Force an array if not already something iterable
@@ -35,5 +36,3 @@ function forEach(obj, fn) {
         }
     }
 }
-
-export { forEach };

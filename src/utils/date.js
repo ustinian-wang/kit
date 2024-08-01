@@ -1,25 +1,25 @@
-import {isDate, isString} from "./typer";
+import {isDate, isObject, isString} from "./typer";
+import {padZero} from "./str.js";
 
 /**
- * get date by year and month
+ * @description get the day of the month
  * @param {number} year
  * @param {number} month
- * @returns {number}
+ * @returns {number} 1-31 or 1-30 or 1-28 or 1-29
  */
-export function getTotalDayByMonth(year, month) {
-    month = parseInt(month, 10);
+export function getDayOfMonth(year, month) {
     let d = new Date(year, month, 0);
     return d.getDate();
 }
 
 /**
- * get week day
+ * @description get the day of the week
  * @param {number} year
  * @param {number} month
  * @param {number} date
- * @returns {number}
+ * @returns {number} 1-7
  */
-export function getWeek(year, month, date) {
+export function getDayOfWeek(year, month, date) {
     let d = new Date(year, month - 1, date);
     return d.getDay();
 }
@@ -31,6 +31,9 @@ export function getWeek(year, month, date) {
  * @returns {*}
  */
 export function dateFormat(fmt, date) {
+    if(!isDate(date)){
+        return;
+    }
     let o = {
         'M+': date.getMonth() + 1,
         //月份
@@ -69,11 +72,11 @@ export function dateFormat(fmt, date) {
 }
 
 /**
- * parse date string to object
+ * @description parse date string to object with 'YYYY-MM-DD' pattern
  * @param {string} str
  * @returns {{date: number, month: number, year: number}}
  */
-export function parseStr(str) {
+export function parseDateStr(str) {
     if (!isString(str)) {
         str = '';
     }
@@ -85,6 +88,13 @@ export function parseStr(str) {
         date: +date,
     };
 }
+
+/**
+ * @typedef {object} ParsedDate
+ * @param {string} year
+ * @param {string} month
+ * @param {string} date
+ */
 
 /**
  * parse date instance to object
@@ -107,134 +117,90 @@ export function parseDate(date) {
 }
 
 /**
- * string to date instance
- * @param {string} year
- * @param {string} month
- * @param {Date} date
+ * @description string to date instance
+ * @param {ParsedDate} value
+ * @returns {Date|undefined}
  */
-export function toDate({year, month, date}) {
+export function toDate(value) {
+    if(!isParsedDate(value)){
+        return;
+    }
+    let {
+        year,
+        month,
+        date,
+    } = value;
     return new Date(year, month - 1, date);
 }
 
 /**
- * @description is a date
- * @param {string} year
- * @param {string} month
- * @param {string} date
+ * @description is ParsedDate
  * @returns {string}
+ * @param obj
+ * @returns {boolean}
  */
-export function isADate({year, month, date}) {
+export function isParsedDate(obj) {
+    if(!isObject(obj)){
+        return false;
+    }
+    let {year, month, date} = obj;
     return year && month && date;
 }
 
 /**
- * @description add days
- * @param {Date} date
- * @param {number} num
- * @param {string} tag
- * @returns {Date|undefined}
- */
-export function add(date, num, tag) {
-    switch (tag) {
-        case 'days':
-            return new Date(date.getTime() + num * 86400000);
-
-        default:
-            break;
-    }
-}
-
-/**
- * @description 两个日期相隔多少天
- * @param {Object} start
- * @param {Object} end
+ * @description get days between start end end
+ * @param {string | Date} start
+ * @param {string | Date} end
  * @returns {Number} 相隔天数
  */
-export function howManyDaysBetween(start, end) {
+export function getDaysBetween(start, end) {
     let startTimeStamp = toDate(start);
     let endTimeStamp = toDate(end);
     return (endTimeStamp - startTimeStamp) / 86400000;
 }
 
 /**
- * @description 获得当前日期（年月日）
- * @returns {String} 当前日期（年月日），如：20220517
+ * @description get today sting with 'YYYYMMDD' pattern
+ * @returns {String}
  */
 export function getToday() {
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
     let day = now.getDate();
+    month = padZero(month)
+    day = padZero(day);
 
-    if (month < 10) {
-        month = '0' + month;
-    }
-
-    if (day < 10) {
-        day = '0' + day;
-    }
-
-    let formatDate = year + month + day;
-    return formatDate;
+    return year + month + day;
 }
-
-// 这不算是日期，但是和日期相关，所以先放这里了
 /**
- * @description 格式化时间
- * @param { number } time
- * @returns { string }
+ * @description get rest information of the time
+ * @param {number} timestamp ms unit
+ * @returns {{hours: string, seconds: string, totalHours: string, minutes: string, days: string}}
  */
-export function formatTimeToStr(time) {
-    time = isNaN(time) ? 0 : parseInt(time);
-    return time < 0 ? '00' : `${time < 10 ? `0` : ``}${time}`;
-};
-
-/**
- * @description 更粒子化
- * @param { number } timestamp
- * @returns { number }
- */
-export const getDateMap = {
-    days: timestamp => parseInt(timestamp / 1000 / 60 / 60 / 24, 10), //计算剩余的天数
-    allHours: timestamp => parseInt(timestamp / 1000 / 60 / 60, 10), //计算剩余总的小时
-    hours: timestamp => parseInt((timestamp / 1000 / 60 / 60) % 24, 10), //计算剩余的小时
-    minutes: timestamp => parseInt((timestamp / 1000 / 60) % 60, 10), //计算剩余的分钟
-    seconds: timestamp => parseInt((timestamp / 1000) % 60, 10), //计算剩余的秒数
-};
-
-/**
- * @typedef {object} getLeftTimeObjReturn
- * @property {string} getLeftTimeObjReturn.days
- * @property {string} getLeftTimeObjReturn.hours
- * @property {string} getLeftTimeObjReturn.minutes
- * @property {string} getLeftTimeObjReturn.seconds
- * @property {string} getLeftTimeObjReturn.allHours
- */
-/**
- * @description 获取剩余时间
- * @param { number } timestamp
- * @returns {getLeftTimeObjReturn}
- */
-export function getLeftTimeObj(timestamp) {
-    const {days, hours, minutes, seconds, allHours} = getDateMap;
+export function getLeftTimeInfo(timestamp) {
+    let days = timestamp => Math.trunc(timestamp / TimeDef.DAY); //计算剩余的天数
+    let totalHours = timestamp => Math.trunc(timestamp / TimeDef.HOUR); //计算剩余总的小时
+    let hours = timestamp => Math.trunc((timestamp / TimeDef.HOUR) % 24); //计算剩余的小时
+    let minutes = timestamp => Math.trunc((timestamp / TimeDef.MINUTE) % 60); //计算剩余的分钟
+    let seconds = timestamp => Math.trunc((timestamp / TimeDef.SECOND) % 60); //计算剩余的秒数
 
     return {
-        days: formatTimeToStr(days(timestamp)),
-        hours: formatTimeToStr(hours(timestamp)),
-        minutes: formatTimeToStr(minutes(timestamp)),
-        seconds: formatTimeToStr(seconds(timestamp)),
-        allHours: formatTimeToStr(allHours(timestamp)),
+        days: padZero(days(timestamp)),
+        hours: padZero(hours(timestamp)),
+        minutes: padZero(minutes(timestamp)),
+        seconds: padZero(seconds(timestamp)),
+        totalHours: padZero(totalHours(timestamp)),
     };
-};
+}
 
 /**
- * @description 比较两个时间戳
- * @param { number } time
- * @returns { boolean }
+ * @description compare timestamp with now timestamp
+ * @param { number } timestamp
+ * @returns { number } timestamp offset with now date
  */
-export function compareToNowTime (time) {
-    const nowTime = new Date();
-    return time - nowTime.getTime();
+export function compareToNow (timestamp) {
+    return timestamp - Date.now()
 }
 
 /**
@@ -242,11 +208,11 @@ export function compareToNowTime (time) {
  * @return {*}
  * @constructor
  */
-function DateFormat() {
-    return new DateFormat.prototype.init();
+function DateFormatFactory() {
+    return new DateFormatFactory.prototype.init();
 }
 
-DateFormat.fn = DateFormat.prototype = {
+DateFormatFactory.fn = DateFormatFactory.prototype = {
     _default: {
         formatFn: function (date, pattern) {
             date = date || 0;
@@ -257,22 +223,22 @@ DateFormat.fn = DateFormat.prototype = {
         },
         formatMap: {
             Y: function (d, f) {
-                return DateFormat.fn._default.formatFn(d.getFullYear(), f);
+                return DateFormatFactory.fn._default.formatFn(d.getFullYear(), f);
             },
             M: function (d, f) {
-                return DateFormat.fn._default.formatFn(d.getMonth() + 1, f);
+                return DateFormatFactory.fn._default.formatFn(d.getMonth() + 1, f);
             },
             D: function (d, f) {
-                return DateFormat.fn._default.formatFn(d.getDate(), f);
+                return DateFormatFactory.fn._default.formatFn(d.getDate(), f);
             },
             h: function (d, f) {
-                return DateFormat.fn._default.formatFn(d.getHours(), f);
+                return DateFormatFactory.fn._default.formatFn(d.getHours(), f);
             },
             m: function (d, f) {
-                return DateFormat.fn._default.formatFn(d.getMinutes(), f);
+                return DateFormatFactory.fn._default.formatFn(d.getMinutes(), f);
             },
             s: function (d, f) {
-                return DateFormat.fn._default.formatFn(d.getSeconds(), f);
+                return DateFormatFactory.fn._default.formatFn(d.getSeconds(), f);
             },
             w: function (d) {
                 return d.getDay();
@@ -302,7 +268,7 @@ DateFormat.fn = DateFormat.prototype = {
         date = new Date(date);
 
         if (/Invalid/i.test(date + '')) {
-            console.error('请提供一个合法日期！');
+            console.error('provide valid date, please！');
             return;
         }
 
@@ -317,23 +283,23 @@ DateFormat.fn = DateFormat.prototype = {
         });
     },
 };
-DateFormat.fn.init.prototype = DateFormat.fn;
+DateFormatFactory.fn.init.prototype = DateFormatFactory.fn;
 
 /**
- * @description format date to string
- * @param {Date|String} date
- * @param {string} pattern
+ * @description format date to string for compat it with IOS mobile
+ * @param {Date|String} date Date or time like '1995-01-01
+ * @param {string} pattern like 'YYYY-MM-DD HH:mm:ss'
  * @returns {string}
  */
 export function formatDate(date, pattern) {
-    let df = new DateFormat();
+    let df = new DateFormatFactory();
     return df.format(date, pattern);
 }
 
 
 const SECOND = 1000;
 /**
- * @description 毫秒单位的时间
+ * @description time definition with millisecond unit
  * @type {{HOUR: number, SECOND: number, MINUTE: number, DAY: number}}
  */
 export const TimeDef = {

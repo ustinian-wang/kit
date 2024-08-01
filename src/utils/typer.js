@@ -1,26 +1,16 @@
-import {isEmptyObj} from "./func";
-
-/**
- * @description whether value is array with numeric type
- * @param value
- * @returns {boolean}
- */
-export function isStringArray(value) {
-    return isArray(value) && value.length > 0 && value.every(isString);
-}
+import {safeJsonParse} from "./str.js";
 
 /**
  * @description whether value is Promise type
- * @param value
+ * @param {*} value
  * @returns {boolean}
  */
 export function isPromise(value) {
     return value instanceof Promise;
 }
 /**
- * dead simple _.isMatch implementation. https://lodash.com/docs/4.17.15#isMatch
+ * @description dead simple _.isMatch implementation. https://lodash.com/docs/4.17.15#isMatch
  * Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
- *
  * @param {Object} object
  * @param {Object} source
  * @returns {boolean}
@@ -51,30 +41,17 @@ export function isMatch(object, source) {
 }
 
 /**
- * Determine whether it is an empty array
- * @param value it must be an array value
+ * @description check if it is an empty array
+ * @param {*} value it must be an array value
  * @returns {boolean}
  */
 export function isEmptyArr(value) {
     return isArray(value) && value.length === 0;
-};
+}
 
 /**
- * @description Determine whether it is an empty object
- * @param obj
- * @return {boolean}
- */
-export function isEmptyObject(obj) {
-    let name;
-    for (name in obj) {
-        return false;
-    }
-    return true;
-};
-
-/**
- * @description Determine whether it is an empty object
- * @param value
+ * @description check if it is an empty object
+ * @param {*} value
  * @return {boolean}
  */
 export function isArray(value) {
@@ -82,8 +59,8 @@ export function isArray(value) {
 }
 
 /**
- * @description Determine whether it is an object
- * @param value
+ * @description check if it is an object
+ * @param {*} value
  * @return {boolean}
  */
 export function isObject(value) {
@@ -91,8 +68,8 @@ export function isObject(value) {
 }
 
 /**
- * @description Determine whether it is a function
- * @param value
+ * @description check if it is a function
+ * @param {*} value
  * @return {boolean}
  */
 export function isFunction(value) {
@@ -100,8 +77,8 @@ export function isFunction(value) {
 }
 
 /**
- * @description Determine whether it is a number
- * @param value
+ * @description check if it is a number
+ * @param {*} value
  * @return {boolean}
  */
 export function isNumber(value) {
@@ -109,8 +86,8 @@ export function isNumber(value) {
 }
 
 /**
- * @description Determine whether it is a boolean
- * @param value
+ * @description check if it is a boolean
+ * @param {*} value
  * @return {boolean}
  */
 export function isBoolean(value) {
@@ -118,8 +95,8 @@ export function isBoolean(value) {
 }
 
 /**
- * @description Determine whether it is null
- * @param value
+ * @description check if it is null
+ * @param {*} value
  * @return {boolean}
  */
 export function isNull(value) {
@@ -127,22 +104,50 @@ export function isNull(value) {
 }
 
 /**
- * @description 该方法会在首参为false，null，undefined，或空对象时返回true
- *
- * @deprecated 由于函数名不明确，函数定位模糊被废弃，请使用utils/tools/typer代替
- * @param {any} data
- * @returns {Boolean}
+ * @description 是否是空对象
+ * @param { object } obj
+ * @returns { boolean }
  */
-export function isBizNull(data) {
-    if (data == null || typeof data == 'undefined' || data === '') {
-        return true;
-    }
-    return isEmptyObj(data);
+export function isEmptyObj(obj) {
+    return equals(obj, {});
 }
 
 /**
- * @description Determine whether it is undefined
- * @param value
+ * @description 用于对比两个数据是否相等，相等/相同，注意Date/RegExp可能会出问题
+ * @param { any } a
+ * @param { any } b
+ * @returns { boolean }
+ */
+export function equals(a, b) {
+    if (isObject(a) && isObject(b)) {
+        return JSON.stringify(a) === JSON.stringify(b);
+    }
+
+    return a === b;
+}
+
+/**
+ * @description 用于对比两个数据是否不相等，相等/相同，注意Date/RegExp可能会出问题
+ * @param { any } a
+ * @param { any } b
+ * @returns { boolean }
+ */
+export function noEquals(a, b) {
+    return !equals(a, b);
+}
+
+/**
+ * @description 是否是空字符串
+ * @param { string } value
+ * @returns { boolean }
+ */
+export function isEmptyStr(value) {
+    return isString(value) && value === '';
+}
+
+/**
+ * @description check if it is undefined
+ * @param {*} value
  * @return {boolean}
  */
 export function isUndefined(value) {
@@ -150,8 +155,8 @@ export function isUndefined(value) {
 }
 
 /**
- * @description Determine whether it is a instance of Date
- * @param value
+ * @description check if it is a instance of Date
+ * @param {*} value
  * @return {boolean}
  */
 export function isDate(value) {
@@ -159,8 +164,8 @@ export function isDate(value) {
 }
 
 /**
- * @description Determine whether it is a instance of RegExp
- * @param value
+ * @description check if it is a instance of RegExp
+ * @param {*} value
  * @return {boolean}
  */
 export function isRegExp(value) {
@@ -168,8 +173,8 @@ export function isRegExp(value) {
 }
 
 /**
- * @description Determine whether it is a instance of Error
- * @param value
+ * @description check if it is a instance of Error
+ * @param {*} value
  * @return {boolean}
  */
 export function isEmpty(value) {
@@ -182,8 +187,8 @@ export function isEmpty(value) {
 }
 
 /**
- * @description Determine whether it is a falsy value
- * @param value
+ * @description check if it is a falsy value
+ * @param {*} value
  * @return {boolean}
  */
 export function isFalsy(value) {
@@ -191,24 +196,38 @@ export function isFalsy(value) {
 }
 
 /**
- * @description Determine whether it is a string value
- * @param value
+ * @description check if it is a string value
+ * @param {*} value
  * @return {boolean}
  */
 export function isString(value) {
     return typeof value === 'string' || value instanceof String;
 }
 
-// 该方法只能检查一个字符串是否看起来像是一个对象字符串，并不能确定该字符串是否可以正确解析为一个有效的 JSON 对象。
-// 如果需要对一个字符串进行完整的 JSON 格式验证，可以使用 JSON.parse() 方法并捕获异常来判断。
-export function isObjectString(str) {
-    // 首先，使用 typeof 判断字符串的类型是否为字符串
-    if (typeof str !== 'string') {
+/**
+ * @description check if value is json with object
+ * @param {string} value
+ * @returns {boolean}
+ */
+export function isObjectString(value) {
+    if (!isString(value)) {
         return false;
     }
 
-    // 然后，判断字符串是否以 '{' 开始且以 '}' 结束
-    return str.trim().charAt(0) === '{' &&
-        str.trim().charAt(str.length - 1) === '}';
+    return isObject(safeJsonParse(value));
+}
 
+/**
+ * @description check if value is class
+ * @param {*} value
+ * @returns {string|boolean}
+ */
+export function isClass(value){
+    let errorMessage = `Class constructor A cannot be invoked without 'new'`;
+    try{
+        value();
+    }catch(e){
+        return e.message = errorMessage
+    }
+    return false;
 }

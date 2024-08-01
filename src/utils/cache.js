@@ -4,9 +4,28 @@
  * @param {number} lifeCycle
  */
 import { jsonStringify, safeJsonParse } from './str.js';
-import { getter } from "./func";
 import { isObject } from "./typer";
+import {getter} from "./obj.js";
+import {getWindow} from "./env.js";
 
+/**
+ * @typedef {Object} CacheObject - A cache object with methods to manage cache data.
+ * @property {object} cache - The cache object that holds the cache data.
+ * @property {function} getData - Returns the cache data.
+ * @property {function} containsKey - Checks if the cache contains a specific key.
+ * @property {function} getCache - Retrieves the value associated with a specific key from the cache.
+ * @property {function} setCache - Sets a value in the cache for a specific key.
+ * @property {function} clearCache - Clears the entire cache.
+ * @property {function} init - Initializes the cache with a new cache object.
+ * @property {function} clearExpire - Clears expired cache entries based on the defined life cycle.
+ */
+
+/**
+ * @description create object to manage cache
+ * @param {object} [cache={}] cache data object
+ * @param {number} [lifeCycle=0] cache time ms
+ * @returns {CacheObject}
+ */
 export function CacheFactory(cache, lifeCycle) {
     return {
         cache: cache,
@@ -67,28 +86,23 @@ export function CacheFactory(cache, lifeCycle) {
             });
         },
     };
-};
-
-function getWindow(){
-    if(typeof global !== "undefined"){
-        return global.window;
-    }else if(typeof window !== "undefined") {
-        return window;
-    }
 }
 
 /**
- * 创建一个磁盘缓存器，该缓存器使用本地存储作为存储。
- * @param {string} DISK_CACHE_KEY - 本地存储中用于缓存的键。
- * @param {number|Function} lifeCycle - 缓存的生命周期，可以是一个时间（以毫秒为单位）或者一个函数，该函数会在缓存项过期时被调用。
- * @returns {{
- *     Cacher: CacheFactory.Cache,
- *     getCache: Function,
- *     setCache: Function,
- *     getTotalData: Function,
- *     reportError: Function,
- *     clearCache: Function
- * }} 一个包含磁盘缓存器的对象，具有读取、写入、获取总数据、报告错误和清除缓存的方法。
+ * @typedef {Object} DiskCache
+ * @property {CacheObject} Cacher
+ * @property {Function} getCache
+ * @property {Function} setCache
+ * @property {Function} getTotalData
+ * @property {Function} reportError
+ * @property {Function} clearCache
+ */
+
+/**
+ * @description create object to manage cache by localStorage
+ * @param {string} DISK_CACHE_KEY - cache group key
+ * @param {number|Function} [lifeCycle=0] cache time
+ * @returns {CacheObject & DiskCache} 。
  */
 function createDiskCacher(DISK_CACHE_KEY, lifeCycle) {
     let nowWindow = getWindow();
@@ -164,7 +178,7 @@ function createDiskCacher(DISK_CACHE_KEY, lifeCycle) {
 
 /**
  * @description 内存缓存
- * @type {{init(*): void, cache, getCache(*): (*), containsKey(*): *, clearCache(): void, setCache(*, *): void, getData(): *, clearExpire(): void}}
+ * @type {CacheObject}
  */
 export const MemoryCache = (function () {
     let cache = {};
@@ -175,18 +189,12 @@ export const MemoryCache = (function () {
 
 /**
  * @description 磁盘缓存，底层是localStorage
- * @type {{Cacher: _.memoize.Cache, getCache: Function, setCache: Function, getTotalData: Function, reportError: Function, clearCache: Function}}
+ * @type {CacheObject & DiskCache}
  */
 export const DiskCache = (function () {
     const DISK_CACHE_KEY = '_diskCache';
     let lifeCycle = 60 * 1000 * 60 * 24 * 365; //默认缓存一年
     return createDiskCacher(DISK_CACHE_KEY, lifeCycle);
 })();
-/**
- * @description DiskCache的别名
- * @type {{Cacher: _.memoize.Cache, getCache: Function, setCache: Function, getTotalData: Function, reportError: Function, clearCache: Function}}
- */
-export const LocalStorageCache = DiskCache
-
 
 

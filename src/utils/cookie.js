@@ -1,9 +1,13 @@
 import {get, set} from "tiny-cookie"
+import {getWindow} from "./env.js";
 
 /**
  * @description 设置cookie
  */
 export function setCookie() {
+    if(!getWindow()){
+        return;
+    }
     return set(...arguments)
 }
 
@@ -21,6 +25,9 @@ export function getCookie() {
  * @return {*}
  */
 export function getObjCookie(key) {
+    if(getWindow()){
+        return null;
+    }
     return get(key, JSON.parse)
 }
 
@@ -31,5 +38,8 @@ export function getObjCookie(key) {
  * @param {object|undefined} options
  */
 export function setObjCookie(key, value, options) {
-    return set(key, value, JSON.stringify, options)
+    let window = getWindow();
+    if(window){
+        return set(key, value, JSON.stringify, options)
+    }
 }

@@ -2,9 +2,9 @@ import {CacheFactory} from "./cache";
 import {isFunction} from "./typer.js";
 
 /**
- * @description 一个强化函数，用于缓存函数的返回值。
- * @param {Function} func - 需要进行记忆的函数。
- * @return {Function} 返回一个新的函数，该函数缓存其参数对应的返回值。
+ * @description
+ * @param {Function} func - 。
+ * @return {Function} return new function caching returned values of calls
  */
 export function memorize(func) {
     let lifeCycle = 60 * 1000; // 默认缓存1分钟
@@ -26,12 +26,12 @@ export function memorize(func) {
 }
 
 /**
- * @description 延迟函数执行，并且缓存延迟期间的参数
- * @param func
- * @param time
+ * @description delay function call and collect calling parameters util to call at last. like debounce
+ * @param {function} func
+ * @param {number} [time=300]
  * @return {function}
  */
-export function delay(func, time = 0) {
+export function delay(func, time) {
     let timer = null;
     let argumentsList = [];
     return function () {
@@ -45,9 +45,9 @@ export function delay(func, time = 0) {
 }
 
 /**
- * @description 防抖
- * @param {function} func *
- * @param {number} [time=300] ms
+ * @description delay function call until last time after specified time
+ * @param {function} func function
+ * @param {number} [time=300] delay time(ms)
  * @return {function}
  */
 export function debounce(func, time=300) {
@@ -63,7 +63,7 @@ export function debounce(func, time=300) {
 }
 
 /**
- * @description 节流
+ * @description control call time interval of function
  * @param {function} func
  * @param {number} [delay=300] ms
  * @return {function}
