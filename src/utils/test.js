@@ -14,9 +14,9 @@ const TypeList = [
 ];
 
 /**
- * @description get random value
- * @param type
- * @returns {symbol|WeakMap<object, any>|Promise<unknown>|Map<any, any>|Set<any>|undefined|*[]|(function())|*|number|{}|boolean|Error|Date|RegExp|null}
+ * @description generate random value by type
+ * @param {Function} type like Function, String and so on
+ * @returns {*}
  */
 export function genRangeValue(type) {
     if (type === String) {
@@ -64,7 +64,7 @@ export function genRangeValue(type) {
 }
 
 /**
- * @description generate random test cases of function
+ * @description generate random test cases of function arguments
  * @param {function} func test function with name. like function name(){}
  * @returns {Array<Array<*>>}
  */
