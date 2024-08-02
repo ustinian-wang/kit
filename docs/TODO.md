@@ -23,9 +23,9 @@
     - [ ] sideEffective:　这个是干嘛的？
 - [ ] 代码文档上传到github pages
   - [x]  https://ustinian-wang.github.io/kit/
-  - [ ] 接入ci自动部署
-    - [ ]  废弃docs分支
-    - [ ]  推送自动部署
+  - [x] 接入ci自动部署
+    - [x]  废弃docs分支
+    - [x]  推送自动部署
 - [ ] 发包
   - [ ]  自动发版本号
   - [ ]  部署文档
