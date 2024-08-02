@@ -2,7 +2,7 @@
 
 ## Introduction
 
-There are so many common logics in many projects I maintain in daily development. Sometimes, you will need some kits to ship features. For example, debounce, throttle  in optimizing frequent user clicking. Sending http packages by axios with custom interceptors, etc. I need a series of kits to improve my efficiency. So the I publish it to npm called @ustinian-wang/kit
+There are so many common logics in many projects I maintain in daily development. Sometimes, you will need some kits to ship features. For example, debounce, throttle  in optimizing frequent user clicking. Sending http packages by axios with custom interceptors, etc. I need a series of kits to improve my efficiency. So the I publish it to npm called [@ustinian-wang/kit](https://www.npmjs.com/package/@ustinian-wang/kit)
 
 
 
