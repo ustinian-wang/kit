@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kit browser/file.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">@mall/kit</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="http://gitlab.faidev.cc/jz/mallfrontend/tree/master/packages/kit"
+                        >
+                            GitLab
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="DateFormatFactory.html">DateFormatFactory</a></li><li><a href="TriggerLock.html">TriggerLock</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CacheFactory">CacheFactory</a></li><li><a href="global.html#LockerWrapper">LockerWrapper</a></li><li><a href="global.html#MemoryCache">MemoryCache</a></li><li><a href="global.html#MimeDef">MimeDef</a></li><li><a href="global.html#MimeShortDef">MimeShortDef</a></li><li><a href="global.html#TimeDef">TimeDef</a></li><li><a href="global.html#array2Map">array2Map</a></li><li><a href="global.html#awaitPromiseRes">awaitPromiseRes</a></li><li><a href="global.html#bindNativeEvent">bindNativeEvent</a></li><li><a href="global.html#checkBit">checkBit</a></li><li><a href="global.html#cloneByJSON">cloneByJSON</a></li><li><a href="global.html#cloneDeep">cloneDeep</a></li><li><a href="global.html#colorToHex">colorToHex</a></li><li><a href="global.html#compareToNow">compareToNow</a></li><li><a href="global.html#completeMime">completeMime</a></li><li><a href="global.html#convertMimes">convertMimes</a></li><li><a href="global.html#createDiskCacher">createDiskCacher</a></li><li><a href="global.html#createNodeInDocumentBody">createNodeInDocumentBody</a></li><li><a href="global.html#dateFormat">dateFormat</a></li><li><a href="global.html#debounce">debounce</a></li><li><a href="global.html#decodeHtml">decodeHtml</a></li><li><a href="global.html#deepAssign">deepAssign</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#ellipsis">ellipsis</a></li><li><a href="global.html#encodeHtml">encodeHtml</a></li><li><a href="global.html#equals">equals</a></li><li><a href="global.html#fixArrayIndex">fixArrayIndex</a></li><li><a href="global.html#forEach">forEach</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#genRangeValue">genRangeValue</a></li><li><a href="global.html#getArgTestCasesOfFunction">getArgTestCasesOfFunction</a></li><li><a href="global.html#getCombination">getCombination</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getCurrUrlParam">getCurrUrlParam</a></li><li><a href="global.html#getDayOfMonth">getDayOfMonth</a></li><li><a href="global.html#getDayOfWeek">getDayOfWeek</a></li><li><a href="global.html#getDaysBetween">getDaysBetween</a></li><li><a href="global.html#getElementsOfCircleArray">getElementsOfCircleArray</a></li><li><a href="global.html#getFieldList">getFieldList</a></li><li><a href="global.html#getFileExtension">getFileExtension</a></li><li><a href="global.html#getFirstByField">getFirstByField</a></li><li><a href="global.html#getFirstByFieldEquals">getFirstByFieldEquals</a></li><li><a href="global.html#getGbLen">getGbLen</a></li><li><a href="global.html#getLeftTimeInfo">getLeftTimeInfo</a></li><li><a href="global.html#getObjCookie">getObjCookie</a></li><li><a href="global.html#getQueryObject">getQueryObject</a></li><li><a href="global.html#getShortMimeByMime">getShortMimeByMime</a></li><li><a href="global.html#getToday">getToday</a></li><li><a href="global.html#getTriggerLock">getTriggerLock</a></li><li><a href="global.html#getUrlFileExtension">getUrlFileExtension</a></li><li><a href="global.html#getUrlParam">getUrlParam</a></li><li><a href="global.html#getUrlSearchParam">getUrlSearchParam</a></li><li><a href="global.html#getWindow">getWindow</a></li><li><a href="global.html#getter">getter</a></li><li><a href="global.html#insertArrayToCircleArray">insertArrayToCircleArray</a></li><li><a href="global.html#isAbsoluteUrl">isAbsoluteUrl</a></li><li><a href="global.html#isArray">isArray</a></li><li><a href="global.html#isBoolean">isBoolean</a></li><li><a href="global.html#isClass">isClass</a></li><li><a href="global.html#isDate">isDate</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#isEmptyArr">isEmptyArr</a></li><li><a href="global.html#isEmptyObj">isEmptyObj</a></li><li><a href="global.html#isEmptyStr">isEmptyStr</a></li><li><a href="global.html#isFalsy">isFalsy</a></li><li><a href="global.html#isFunction">isFunction</a></li><li><a href="global.html#isJSON">isJSON</a></li><li><a href="global.html#isMatch">isMatch</a></li><li><a href="global.html#isNormalEventName">isNormalEventName</a></li><li><a href="global.html#isNormalStr">isNormalStr</a></li><li><a href="global.html#isNull">isNull</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#isNumberArray">isNumberArray</a></li><li><a href="global.html#isObject">isObject</a></li><li><a href="global.html#isObjectString">isObjectString</a></li><li><a href="global.html#isParsedDate">isParsedDate</a></li><li><a href="global.html#isPromise">isPromise</a></li><li><a href="global.html#isRegExp">isRegExp</a></li><li><a href="global.html#isString">isString</a></li><li><a href="global.html#isStringArray">isStringArray</a></li><li><a href="global.html#isTypeArray">isTypeArray</a></li><li><a href="global.html#isUndefined">isUndefined</a></li><li><a href="global.html#isUrl">isUrl</a></li><li><a href="global.html#jsonParse">jsonParse</a></li><li><a href="global.html#jsonStringify">jsonStringify</a></li><li><a href="global.html#memorize">memorize</a></li><li><a href="global.html#noEquals">noEquals</a></li><li><a href="global.html#openFileSelectionWindow">openFileSelectionWindow</a></li><li><a href="global.html#openOneFileSelectionWindow">openOneFileSelectionWindow</a></li><li><a href="global.html#padZero">padZero</a></li><li><a href="global.html#parseDate">parseDate</a></li><li><a href="global.html#parseDateStr">parseDateStr</a></li><li><a href="global.html#parseUrl">parseUrl</a></li><li><a href="global.html#promisify">promisify</a></li><li><a href="global.html#pxToRpx">pxToRpx</a></li><li><a href="global.html#queryObject2String">queryObject2String</a></li><li><a href="global.html#queryString2Object">queryString2Object</a></li><li><a href="global.html#removeElementsOfArray">removeElementsOfArray</a></li><li><a href="global.html#removeNode">removeNode</a></li><li><a href="global.html#renderVueComponentInDocumentBody">renderVueComponentInDocumentBody</a></li><li><a href="global.html#rgbStr2hex">rgbStr2hex</a></li><li><a href="global.html#safeJsonParse">safeJsonParse</a></li><li><a href="global.html#selectOSFile">selectOSFile</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setCurrUrlParam">setCurrUrlParam</a></li><li><a href="global.html#setObjCookie">setObjCookie</a></li><li><a href="global.html#setSelectorOfDOM">setSelectorOfDOM</a></li><li><a href="global.html#setUrlParam">setUrlParam</a></li><li><a href="global.html#setUrlParams">setUrlParams</a></li><li><a href="global.html#setUrlRandomParam">setUrlRandomParam</a></li><li><a href="global.html#setter">setter</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#sleepSecond">sleepSecond</a></li><li><a href="global.html#sortObjectArray">sortObjectArray</a></li><li><a href="global.html#splitArrayByPredicate">splitArrayByPredicate</a></li><li><a href="global.html#subGbStr">subGbStr</a></li><li><a href="global.html#throttle">throttle</a></li><li><a href="global.html#toDate">toDate</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#toUrl">toUrl</a></li><li><a href="global.html#uniqueArray2Map">uniqueArray2Map</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>browser/file.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @typedef {object} BrowserFileDef windows文件对象
+ * @property {number} lastModified 最后修改的时间，格式是数值时间戳
+ * @property {Date} lastModifiedDate 最后修改的时间，格式是Date
+ * @property {string} name 文件名称
+ * @property {number} size 文件尺寸，多少字节
+ * @property {string} type 文件类型，如 "image/png"
+ * @property {string} webkitRelativePath 文件在webkit内核下的系统路径
+ * */
+import {isArray, isObject} from "../typer.js";
+import {getter} from "../obj.js";
+import {getWindow} from "../env.js";
+import {isArrayWithElements, isStringArray} from "../arr.js";
+
+/**
+ * @param {object} options
+ * @param {Array&lt;string>} [options.fileTypeList=[]] 文件类型
+ * @return {Promise&lt;Array&lt;BrowserFileDef>>}
+ */
+export const openFileSelectionWindow = options => {
+    let fileTypeList = getter(options, "fileTypeList");
+    return selectOSFile(fileTypeList, true);
+};
+
+/**
+ * @param {object} options
+ * @param {Array&lt;string>} [options.fileTypeList=[]] 文件类型
+ * @return {Promise&lt;BrowserFileDef>}
+ */
+export const openOneFileSelectionWindow = options => {
+    let fileTypeList = getter(options, "fileTypeList", []);
+    return selectOSFile(fileTypeList, false);
+};
+/**
+ * @description 从windows资源管理器选择文件
+ * @param {Array&lt;string>} [fileTypeList=[]] 文件类型，如果不传递则不限制文件选择的类型范围
+ * @param {boolean} [multiple=false] 是否支持多选
+ * @return {Promise&lt;Array&lt;BrowserFileDef>>}
+ */
+const selectOSFile = async (fileTypeList=[], multiple=false)=>{
+    fileTypeList = isArray(fileTypeList) ? fileTypeList : [];
+    fileTypeList = convertMimes(fileTypeList)
+    return new Promise(resolve => {
+        if(!getWindow()){
+            return resolve();
+        }
+        // let { fileTypeList } = options;
+        // fileTypeList = fileTypeList || [];
+        const fileInputEle = document.createElement('input');
+        fileInputEle.style.display = 'none';
+        fileInputEle.setAttribute('type', 'file');
+        if(multiple){
+            fileInputEle.setAttribute('multiple', 'multiple');
+        }
+        let accept = fileTypeList.length ? fileTypeList.join(',') : '*/*';
+        fileInputEle.setAttribute(
+            'accept',
+            accept,
+        );
+        fileInputEle.onchange = () => {
+            const { files } = fileInputEle;
+            if(multiple){
+                resolve(files);
+            }else{
+                resolve(files[0]);
+            }
+            document.body.removeChild(fileInputEle);
+        };
+        fileInputEle.click();
+        document.body.appendChild(fileInputEle);
+    });
+}
+
+/**
+ * @description convert mime shorthand to completed mime. mime will be filtered if it is invalid
+ * @param {Array&lt;string>} mimeList # ['jpg', 'png', ...]
+ * @return {Array&lt;string>} ['image/jpg', 'image/png', ...]
+ */
+export function convertMimes(mimeList) {
+    mimeList = completeMime(mimeList)
+    return mimeList.map(mime=>{
+        return MimeDef[mime] ? MimeDef[mime] : mime
+    }).filter(Boolean);
+}
+
+/**
+ * @description 对特殊的mime进行补全
+ * @param {Array&lt;String>} mimeList
+ */
+export const completeMime = ( mimeList=[])=>{
+    if(!isArray(mimeList)){
+        return [];
+    }
+    if(isArrayWithElements(mimeList) &amp;&amp; !isStringArray(mimeList)){
+        return [];
+    }
+    //避免出现要求jpeg，但是调用方传入JpeG, JPeg
+    mimeList = [...mimeList].map(value=>value.toLowerCase());
+
+    //['jpg'] or ['jpeg'] to ['jpeg', 'jpg']
+    //先判断是否包含了其中一种
+    let jpgList = ['jpg', 'jpeg']
+    let isIncluded = mimeList.some(mime=>{
+        return jpgList.includes(mime);
+    })
+    // 将缺失的另外一种包含进去
+    if(isIncluded){
+        jpgList.forEach(mime=>{
+            if(!mimeList.includes(mime)){
+                mimeList.push(mime);
+            }
+        })
+    }
+    return mimeList;
+}
+
+/**
+ * @description 精简类型的Mime定义
+ * @type {{ZIP: string, JPG: string, RAR: string, SVG: string, PNG: string, JPEG: string, HTML: string, TXT: string, FLV: string, PDF: string, PPT: string, DOC: string, M4A: string, XLS: string, DOCX: string, PSD: string, PPTX: string, SWF: string, BMP: string, GIF: string, AI: string, XLSX: string, MP4: string, MP3: string, EXE: string, ICO: string}}
+ */
+export const MimeShortDef = {
+    ZIP: 'zip',
+    JPG: 'jpg',
+    SVG: 'svg',
+    JPEG: 'jpeg',
+    PNG: 'png',
+    GIF: 'gif',
+    BMP: 'bmp',
+    DOC: 'doc',
+    XLS: 'xls',
+    DOCX: 'docx',
+    XLSX: 'xlsx',
+    PPT: 'ppt',
+    PPTX: 'pptx',
+    MP3: 'mp3',
+    M4A: 'm4a',
+    MP4: 'mp4',
+    PDF: 'pdf',
+    EXE: 'exe',
+    HTML: 'html',
+    ICO: 'ico',
+    TXT: 'txt',
+    FLV: 'flv',
+    SWF: 'swf',
+    PSD: 'psd',
+    AI: 'ai',
+    RAR: 'rar',
+};
+/**
+ * @description 完整的Mime定义，需要配合MimeShortDef，给文件系统使用
+ */
+export const MimeDef = {
+    [MimeShortDef.ZIP]: 'application/x-zip-compressed',
+    [MimeShortDef.JPG]: 'image/jpg',
+    [MimeShortDef.SVG]: 'image/svg+xml',
+    [MimeShortDef.JPEG]: 'image/jpeg',
+    [MimeShortDef.PNG]: 'image/png',
+    [MimeShortDef.GIF]: 'image/gif',
+    [MimeShortDef.BMP]: 'image/bmp',
+    [MimeShortDef.DOC]: 'application/msword',
+    [MimeShortDef.XLS]: 'application/vnd.ms-excel',
+    [MimeShortDef.DOCX]:
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    [MimeShortDef.XLSX]:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    [MimeShortDef.PPT]: 'application/vnd.ms-powerpoint',
+    [MimeShortDef.PPTX]:
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    [MimeShortDef.MP3]: 'audio/mpeg',
+    [MimeShortDef.M4A]: 'audio/MP4A-LATM',
+    [MimeShortDef.MP4]: 'video/mp4',
+    [MimeShortDef.PDF]: 'application/pdf',
+    [MimeShortDef.EXE]: 'application/x-msdownload',
+    [MimeShortDef.HTML]: 'text/html',
+    [MimeShortDef.ICO]: 'image/x-icon',
+    [MimeShortDef.TXT]: 'text/plain',
+    [MimeShortDef.FLV]: 'flv',
+    [MimeShortDef.SWF]: 'application/x-shockwave-flash',
+    [MimeShortDef.PSD]: 'psd',
+    [MimeShortDef.AI]: 'ai',
+    [MimeShortDef.RAR]: '.rar',
+};
+/**
+ * @description 由完整的mime获取简短的mime
+ * @param {string} mime
+ * @return {string}
+ */
+export const getShortMimeByMime = (mime)=>{
+    let entries = Object.entries(MimeDef)
+    for(let pair of entries){
+        let key = pair[0]
+        let value = pair[1]
+        if(value === mime){
+            return key;
+        }
+    }
+}
+
+export const FileSizeDef = {
+    BYTE: 1,
+    KB: 1024,
+    MB: 1024*1024
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>
