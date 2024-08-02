@@ -2,7 +2,7 @@ import {awaitPromiseRes} from "./async.js";
 import {noop} from "./other.js";
 
 /**
- * @description 用于处理高频操作，避免点击流程未结束，界面响应了用户的下一次点击
+ * @description lock user actions until it finished
  * @example
  * //创建
  * import { getTriggerLock } from '@/utils/lock.js';
