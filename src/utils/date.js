@@ -204,7 +204,7 @@ export function compareToNow (timestamp) {
 }
 
 /**
- * @description 格式化时间
+ * @description format time
  * @return {*}
  * @constructor
  */
