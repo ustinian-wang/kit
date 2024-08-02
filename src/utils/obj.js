@@ -12,7 +12,7 @@ export const cloneByJSON = (value)=>{
 }
 
 /**
- * @description
+ * @description set value to obj with specified key path
  * @param {object} obj
  * @param {string} key
  * @param {*} value
@@ -94,7 +94,6 @@ export function getCombinationOfObject(obj, objDef) {
  * @param {Array<Array<*>>} arrays - 一个数组的数组，每个数组代表一组可选元素。
  * @returns {Array<Array<*>>} - 返回一个包含所有可能组合的数组。
  * @example
- * <pre>
  *     // 示例用法
  *     let combos = getCombination([
  *         [1, 2],
@@ -103,7 +102,6 @@ export function getCombinationOfObject(obj, objDef) {
  *     ]);
  *
  *     console.log(combos); // [[1, 3, 5], [1, 3, 6], [1, 4, 5], [1, 4, 6], [2, 3, 5], [2, 3, 6], [2, 4, 5], [2, 4, 6]]
- * </pre>
  */
 function getCombination(arrays) {
     let result = [];

@@ -102,7 +102,7 @@ export function CacheFactory(cache, lifeCycle) {
  * @description create object to manage cache by localStorage
  * @param {string} DISK_CACHE_KEY - cache group key
  * @param {number|Function} [lifeCycle=0] cache time
- * @returns {CacheObject & DiskCache} 。
+ * @returns {CacheObject | DiskCache} 。
  */
 function createDiskCacher(DISK_CACHE_KEY, lifeCycle) {
     let nowWindow = getWindow();
@@ -189,7 +189,7 @@ export const MemoryCache = (function () {
 
 /**
  * @description 磁盘缓存，底层是localStorage
- * @type {CacheObject & DiskCache}
+ * @type {CacheObject | DiskCache}
  */
 export const DiskCache = (function () {
     const DISK_CACHE_KEY = '_diskCache';

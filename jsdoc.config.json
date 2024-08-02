@@ -1,7 +1,7 @@
 {
     "source": {
         "include": ["index.js", "./src/utils"],
-        "excludePattern": "(node_modules/|kit-docs)"
+        "excludePattern": "(node_modules/|docs)"
     },
     "opts": {
         "encoding": "utf8",

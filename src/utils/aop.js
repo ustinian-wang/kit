@@ -2,7 +2,7 @@ import {CacheFactory} from "./cache";
 import {isFunction} from "./typer.js";
 
 /**
- * @description
+ * @description cache returned value for function calls
  * @param {Function} func - 。
  * @return {Function} return new function caching returned values of calls
  */
