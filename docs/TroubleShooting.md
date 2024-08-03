@@ -101,4 +101,7 @@ npm config set proxy http://127.0.0.1:8001
 - 接着github pages选择gh-pages分支作为文档
 - 然后访问github.io即可看到效果
 
+## Q 怎那么加上git commit规范校验
 
+- 入门参考[官方文档](https://commitlint.js.org/guides/getting-started)
+- 最后`commitlint.config.js`的内容参考这篇[博客](https://juejin.cn/post/6983191125242675230)
