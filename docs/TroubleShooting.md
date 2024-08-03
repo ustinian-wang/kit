@@ -61,3 +61,44 @@ npm config set proxy http://127.0.0.1:8001
 
 按照npm的规范来说是不行的，你只能`修订号`+1来重新发包了。
 
+## Q: 如何加上changelog
+
+## Q: 给项目发版本打tag
+
+## Q: 如何利用github actions自动部署github pages
+原理：
+- git actions 增加一个工作流文件`actions-yml`，文件的内容如下：
+  ```yml
+    name: kit deployment
+    on:
+    push:
+    branches:
+    - main
+    permissions:
+    contents: write
+    jobs:
+    build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout 🛎️
+    uses: actions/checkout@v4
+    
+          - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+            run: |
+              yarn install
+              yarn test
+              yarn docs:build
+    
+          - name: Deploy 🚀
+            uses: JamesIves/github-pages-deploy-action@v4
+            with:
+              folder: kit-docs # The folder the action should deploy.
+    ```
+- `JamesIves/github-pages-deploy-action@v4`
+  会为你的仓库自动创建了`gh-pages`分支 
+- 当你构建结束后，会把产物提交到gh-pages上
+- 接着github pages选择gh-pages分支作为文档
+- 然后访问github.io即可看到效果
+
+
