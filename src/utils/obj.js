@@ -1,4 +1,4 @@
-import {isArray, isFunction, isObject, isString, isUndefined} from "./typer.js";
+import {isArray, isObject, isString} from "./typer.js";
 import {cloneDeep, deepAssign} from "./clone.js";
 import {jsonParse, jsonStringify, safeJsonParse} from "./str.js";
 import {noop} from "./other.js";
@@ -58,6 +58,20 @@ export function eachObject(obj={}, callback=noop, prePath = '') {
     }
 }
 
+/**
+ * @description get combination of object by objDef. But it doesn't support definition about array
+ * @param {object} obj original obj data
+ * @param {object} objDef the definition object of getting fields of obj
+ * @returns {*[]}
+ * @example
+ * import { getCombinationOfObject } from * "@ustinian-wang/kit";
+ * let testData  ={ a: 1, b: 2 };
+ * let dataList = getCombinationOfObject(testData, {
+ *      a: [1, 2,3],
+ *      b: [4, 5, 6]
+ *  });
+ * let newData = deepAssign( {}, testData, dataList[0] );
+ */
 export function getCombinationOfObject(obj, objDef) {
     let pathObj = {};
     /**
@@ -82,8 +96,7 @@ export function getCombinationOfObject(obj, objDef) {
         let tmpObj = {};
         paths.forEach((path, index) => {
             let value = result[index];
-            let key = path;
-            setter(tmpObj, key, value);
+            setter(tmpObj, path, value);
         });
         return deepAssign(cloneDeep(obj), tmpObj);
     });
@@ -110,8 +123,8 @@ function getCombination(arrays) {
         if (index === arrays.length) {
             result.push(combination);
         } else {
-            for (let i = 0; i < arrays[index].length; i++) {
-                helper([...combination, arrays[index][i]], index + 1);
+            for (const element of arrays[index]) {
+                helper([...combination, element], index + 1);
             }
         }
     }
@@ -146,7 +159,7 @@ export function getter(obj, path='', defaultValue = undefined) {
     const props = path.split(".");
     let result = obj;
     for (const prop of props) {
-        const isArrayIndex = /\[\d+\]/.test(prop);
+        const isArrayIndex = /\[\d+]/.test(prop);
         if (isArrayIndex) {
             const index = parseInt(prop.match(/\d+/)[0]);
             result = result[index];
