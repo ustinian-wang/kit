@@ -87,7 +87,7 @@ test('eachObject', () => {
     });
 });
 
-test.skip('getCombinationOfObject', () => {
+test('getCombinationOfObject', () => {
     let obj = {
         content: {
             s: 1,
@@ -161,7 +161,7 @@ describe('getter function', () => {
         expect(result).toBe(expectedOutput);
     });
 
-    it.skip('should return undefined for null input', () => {
+    it('should return undefined for null input', () => {
         const input = null;
         const key = 'name';
         const expectedOutput = undefined;
