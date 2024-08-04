@@ -62,7 +62,6 @@ export function eachObject(obj={}, callback=noop, prePath = '') {
  * @description get combination of object by objDef. But it doesn't support definition about array
  * @param {object} obj original obj data
  * @param {object} objDef the definition object of getting fields of obj
- * @returns {*[]}
  * @example
  * import { getCombinationOfObject } from * "@ustinian-wang/kit";
  * let testData  ={ a: 1, b: 2 };
@@ -71,6 +70,8 @@ export function eachObject(obj={}, callback=noop, prePath = '') {
  *      b: [4, 5, 6]
  *  });
  * let newData = deepAssign( {}, testData, dataList[0] );
+ * @returns {Array<object>}
+
  */
 export function getCombinationOfObject(obj, objDef) {
     let pathObj = {};
