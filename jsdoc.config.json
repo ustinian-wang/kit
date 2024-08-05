@@ -23,13 +23,13 @@
         "monospaceLinks": false,
         "search": true,
         "better-docs": {
-            "name": "@mall/kit",
+            "name": "@ustinian-wang/kit",
             "title": "kit",
 	        "hideGenerator": true,
             "navLinks": [
                 {
-                    "label": "GitLab",
-                    "href": "http://gitlab.faidev.cc/jz/mallfrontend/tree/master/packages/kit"
+                    "label": "GitHub",
+                    "href": "https://github.com/ustinian-wang/kit"
                 }
             ]
         }
