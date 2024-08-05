@@ -85,3 +85,5 @@
 - [x] toObject
   - [ ] test case
 - [x] toUrl
+- [ ] 把time的方法加入：https://www.tapd.cn/50661197/bugtrace/bugs/view/1150661197001140275
+- [] 支持分页逻辑
