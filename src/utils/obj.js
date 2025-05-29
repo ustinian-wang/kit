@@ -173,3 +173,20 @@ export function getter(obj, path='', defaultValue = undefined) {
     }
     return result;
 }
+
+export function isObjErr(obj = {}, err_field_def = {}) {
+    let keys = Object.keys(obj);
+    
+    for(let key of keys){
+        let err_rules = err_field_def[key] || [];
+        let value = obj[key];
+
+        for(let err_kw of err_rules){
+            if(value.includes(err_kw)){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}

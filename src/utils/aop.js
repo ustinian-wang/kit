@@ -96,5 +96,6 @@ export function asyncRetry(func, times = 3) {
                 console.log(`retry ${i} times`);
             }
         }
+        console.log(22)
     }
 }
