@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/ustinian-wang/kit/compare/v1.0.1...v1.0.2) (2025-06-01)
+
+
+### ✨ Features | 新功能
+
+* add after, before ([a3c5d07](https://github.com/ustinian-wang/kit/commit/a3c5d0785f94ac3ae7374f8ebd37b70cefb7e084))
+
 ### [1.0.1](https://github.com/ustinian-wang/kit/compare/v1.0.0...v1.0.1) (2025-06-01)
 
 ### [0.1.11](https://github.com/ustinian-wang/kit/compare/v0.1.10...v0.1.11) (2025-01-07)
