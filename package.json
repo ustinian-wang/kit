@@ -1,7 +1,7 @@
 {
     "name": "@ustinian-wang/kit",
     "version": "1.0.5",
-    "main": "dist/kit.umd.js",
+    "main": "dist/index.js",
     "module": "dist/index.js",
     "scripts": {
         "test": "jest",

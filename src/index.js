@@ -5,7 +5,7 @@ export {
     setSelectorOfDOM,
     bindNativeEvent,
     removeNode
-} from "./src/utils/browser/dom.js";
+} from "./utils/browser/dom.js";
 export {
     openFileSelectionWindow,
     openOneFileSelectionWindow,
@@ -15,7 +15,7 @@ export {
     getShortMimeByMime,
     FileSizeDef,
     convertMimes,
-} from "./src/utils/browser/file.js";
+} from "./utils/browser/file.js";
 export {
     before,
     after,
@@ -24,7 +24,7 @@ export {
     debounce,
     throttle,
     asyncRetry,
-} from "./src/utils/aop.js";
+} from "./utils/aop.js";
 export {
     array2Map,
     getFieldList,
@@ -42,25 +42,25 @@ export {
     sortObjectArray,
     isStringArray,
     diffArrays,
-} from "./src/utils/arr.js";
+} from "./utils/arr.js";
 export {
     awaitPromiseRes,
     promisify,
     sleep,
     sleepSecond,
-} from "./src/utils/async.js";
+} from "./utils/async.js";
 export {
     CacheFactory,
     MemoryCache,
     DiskCache,
     SessionStorageCache,
-} from "./src/utils/cache";
+} from "./utils/cache.js";
 export {
     setCookie,
     getCookie,
     getObjCookie,
     setObjCookie,
-} from "./src/utils/cookie";
+} from "./utils/cookie.js";
 export {
     getDayOfMonth,
     getDayOfWeek,
@@ -75,19 +75,19 @@ export {
     compareToNow,
     formatDate,
     TimeDef
-} from "./src/utils/date";
+} from "./utils/date.js";
 export {
     getFileExtension,
     getUrlFileExtension
-} from "./src/utils/file";
+} from "./utils/file.js";
 export {
     forEach
-} from "./src/utils/Iterate";
+} from "./utils/Iterate.js";
 export {
     TriggerLock,
     getTriggerLock,
     LockerWrapper
-} from "./src/utils/lock";
+} from "./utils/lock.js";
 export {
     cloneByJSON,
     setter,
@@ -96,7 +96,7 @@ export {
     toObject,
     getter,
     isObjErr,
-} from "./src/utils/obj";
+} from "./utils/obj.js";
 export {
     padZero,
     isNormalEventName,
@@ -107,7 +107,7 @@ export {
     jsonStringify,
     getGbLen,
     subGbStr,
-} from "./src/utils/str";
+} from "./utils/str.js";
 export {
     isPromise,
     isMatch,
@@ -130,11 +130,11 @@ export {
     isString,
     isObjectString,
     isClass,
-} from "./src/utils/typer";
+} from "./utils/typer.js";
 export {
     cloneDeep,
     deepAssign,
-} from "./src/utils/clone";
+} from "./utils/clone.js";
 
 export {
     parseUrl,
@@ -148,8 +148,8 @@ export {
     setUrlParams,
     isUrl,
     isAbsoluteUrl,
-} from "./src/utils/url";
-export { checkBit } from "./src/utils/bit.js";
+} from "./utils/url.js";
+import { checkBit } from "./utils/bit.js";
 // utils end
 
 
@@ -175,5 +175,14 @@ export {
   getZeroMoment,
   isTodayBefore,
   extendTime
-} from "./src/libs/moment.js";
+} from "./libs/moment.js";
 // libs end
+
+const f = () => {   
+    console.log('f')
+}
+console.log(666)
+export {
+    checkBit,
+    f
+}
