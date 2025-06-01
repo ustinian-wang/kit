@@ -1,4 +1,24 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import glob from 'glob';
+
+function getEntries() {
+  // 递归查找 src 目录下所有 js 文件
+  const files = glob.sync('src/**/*.js');
+  const entries = {};
+  files.forEach(file => {
+    // 去掉 src/ 前缀和 .js 后缀，作为输出文件名
+    const outFile = file.replace(/^src\//, '').replace(/\.js$/, '');
+    entries[outFile] = resolve(__dirname, file);
+  });
+  const files2 = glob.sync('index.js');
+  files2.forEach(file => {
+    const outFile = file.replace(/^src\//, '').replace(/\.js$/, '');
+    entries[outFile] = resolve(__dirname, file);
+  });
+
+  return entries;
+}
 
 export default defineConfig({
   server: {
@@ -6,20 +26,17 @@ export default defineConfig({
     open: true,      // 启动后自动打开浏览器
   },
   build: {
-    lib: {
-      entry: 'index.js', // 入口文件，根据实际情况调整
-      name: 'kit',    // 打包后全局变量名
-      fileName: (format) => `kit.${format}.js`,
-      formats: ['es', 'umd'], // 输出格式
-    },
+    outDir: 'dist',
     rollupOptions: {
-      // 确保外部化处理你不想打包进库的依赖
-      external: [],
+      input: getEntries(), // 多入口
       output: {
-        globals: {
-          // 例如: react: 'React'
-        },
+        entryFileNames: '[name].js', // 输出文件名
+        format: 'es',
+        // preserveModules: true, // 保持模块结构
+        preserveModulesRoot: 'src', // 以 src 为根目录
       },
+      external: ['moment'],
     },
+    emptyOutDir: true,
   },
 });
