@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/ustinian-wang/kit/compare/v1.0.4...v1.0.5) (2025-06-01)
+
+
+### 📦 Chores | 其他更新
+
+* up pkg ([2fd20a7](https://github.com/ustinian-wang/kit/commit/2fd20a73b030960b3487d849c2134a2ff58388a4))
+
+
+### ✨ Features | 新功能
+
+* add esm ([a489e56](https://github.com/ustinian-wang/kit/commit/a489e56082f6d7a3685ec4d63b14adbd3ddeb9bd))
+
 ### [1.0.4](https://github.com/ustinian-wang/kit/compare/v1.0.3...v1.0.4) (2025-06-01)
 
 
