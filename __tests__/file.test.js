@@ -1,4 +1,4 @@
-import { getFileExtension, getUrlFileExtension } from "../src/utils/file.js";
+import { getFileExtension, getUrlFileExtension } from "../index.js";
 
 describe('getFileExtension', () => {
     test('should return "txt" for filename "hello.txt"', () => {

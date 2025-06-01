@@ -6,8 +6,8 @@ import {
     isPromise,
     isString,
     isUndefined
-} from "../src/utils/typer.js";
-import {isStringArray} from "../src/utils/arr.js";
+} from "../index.js";
+import {isStringArray} from "../index.js";
 
 test("isObjectString", ()=>{
     expect(isObjectString("{}")).toBeTruthy()

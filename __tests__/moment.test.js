@@ -20,7 +20,7 @@ import {
   getZeroMoment,
   isTodayBefore,
   extendTime
-} from '../src/libs/moment';
+} from '../index.js';
 
 describe('Moment Utility Functions', () => {
   // 固定测试时间为 2024-03-15 14:30:00

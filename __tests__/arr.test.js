@@ -5,7 +5,7 @@ import {
     insertArrayToCircleArray,
     isNumberArray,
     removeElementsOfArray, sortObjectArray, splitArrayByPredicate, uniqueArray2Map
-} from "../src/utils/arr.js";
+} from "../index.js";
 
 describe('test', () => {
     test('array2Map', () => {

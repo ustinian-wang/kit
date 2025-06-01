@@ -1,4 +1,4 @@
-import {eachObject, getCombinationOfObject, getter, setter} from "../src/utils/obj.js";
+import {eachObject, getCombinationOfObject, getter, setter} from "../index.js";
 
 test('setter', () => {
     expect(setter({}, 'a.b.c', 3)).toEqual({

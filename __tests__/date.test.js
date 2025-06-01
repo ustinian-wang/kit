@@ -1,4 +1,4 @@
-import {formatDate, getDaysBetween, isParsedDate, parseDate, parseDateStr, toDate} from "../src/utils/date.js";
+import {formatDate, getDaysBetween, isParsedDate, parseDate, parseDateStr, toDate} from "../index.js";
 
 describe('date', function () {
     let error;
