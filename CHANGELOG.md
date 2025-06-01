@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/ustinian-wang/kit/compare/v1.0.5...v1.0.6) (2025-06-01)
+
+
+### 📦 Chores | 其他更新
+
+* update pkg ([52ca6c8](https://github.com/ustinian-wang/kit/commit/52ca6c8dfdb547a05ea3d9eea009203c1f47a380))
+
 ### [1.0.5](https://github.com/ustinian-wang/kit/compare/v1.0.4...v1.0.5) (2025-06-01)
 
 
