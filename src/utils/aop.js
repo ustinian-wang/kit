@@ -99,3 +99,22 @@ export function asyncRetry(func, times = 3) {
         console.log(22)
     }
 }
+
+
+export function before(func, fn=()=>{}) {
+    return function (...args) {
+        fn.apply(this, args);
+        func.apply(this, args);
+    }
+}
+
+export function after(func, fn=()=>{}) {    
+    return function (...args) {
+        func.apply(this, args);
+        fn.apply(this, args);
+    }
+}
+
+
+
+
