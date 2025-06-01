@@ -55,5 +55,6 @@
     },
     "repository": "https://github.com/ustinian-wang/kit",
     "homepage": "https://ustinian-wang.github.io/kit/",
-    "types": "dist/index.d.ts"
+    "types": "dist/index.d.ts",
+    "sideEffects": false
 }
