@@ -1,6 +1,6 @@
 {
     "name": "@ustinian-wang/kit",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "main": "dist/kit.umd.js",
     "module": "dist/kit.es.js",
     "scripts": {
@@ -13,12 +13,12 @@
         "release:patch": "standard-version --release-as patch",
         "release:minor": "standard-version --release-as minor",
         "release:major": "standard-version --release-as major",
-        "pub:patch": "npm run release:patch && git push --follow-tags origin main && npm publish",
-        "pub:minor": "npm run release:minor && git push --follow-tags origin main && npm publish",
-        "pub:major": "npm run release:major && git push --follow-tags origin main && npm publish",
+        "pub:patch": "yarn build && npm run release:patch && git push --follow-tags origin main && npm publish",
+        "pub:minor": "yarn build && npm run release:minor && git push --follow-tags origin main && npm publish",
+        "pub:major": "yarn build && npm run release:major && git push --follow-tags origin main && npm publish",
         "build": "vite build",
         "dev": "vite",
-        "np": "npx np"
+        "np": "yarn build && npx np"
     },
     "keywords": [
         "kit",
