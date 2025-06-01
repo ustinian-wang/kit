@@ -1,5 +1,5 @@
 
-import {TriggerLock} from "../index.js";
+import {TriggerLock} from "../src/utils/lock";
 
 describe('TriggerLock', () => {
     let error; //reference to https://krasimirtsonev.com/blog/article/jest-mock-console-methods

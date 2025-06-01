@@ -1,7 +1,7 @@
-import * as kit from "../index.js";
+import * as kit from "../src/index.js";
 
-import {isClass, isFunction, jsonStringify} from "../index.js";
-import {getArgTestCasesOfFunction} from "../src/utils/test.js";
+import {jsonStringify} from "../src/utils/str";
+import {getArgTestCasesOfFunction} from "../src/utils/test";
 
 class A {}
 describe("testFunctionArgsType", function () {

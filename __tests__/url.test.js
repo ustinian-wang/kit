@@ -6,7 +6,7 @@ import {
     setUrlParam,
     setUrlRandomParam,
     toUrl
-} from "../index.js";
+} from "../src/utils/url";
 
 test("parseUrl", () => {
 expect(parseUrl("http://www.baidu.com")).toEqual({

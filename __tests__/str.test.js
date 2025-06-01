@@ -4,7 +4,7 @@ import {
     isJSON,
     isNormalEventName,
     safeJsonParse
-} from "../index.js";
+} from "../src/utils/str";
 
 
 test('addZero', () => {
