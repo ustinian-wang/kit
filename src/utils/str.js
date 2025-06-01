@@ -137,7 +137,7 @@ export function jsonStringify(object, defaultValue = void 0, extArgs = {}) {
     try {
         return JSON.stringify(object, replacer, space);
     } catch (e) {
-        console.log('jsonStringify error ', e);
+        console.error('jsonStringify error ', e);
         return defaultValue;
     }
 }

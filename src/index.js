@@ -176,13 +176,3 @@ export {
   isTodayBefore,
   extendTime
 } from "./libs/moment.js";
-// libs end
-
-const f = () => {   
-    console.log('f')
-}
-console.log(666)
-export {
-    checkBit,
-    f
-}

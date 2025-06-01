@@ -93,10 +93,9 @@ export function asyncRetry(func, times = 3) {
             try {
                 return await func.apply(this, args);
             } catch (error) {
-                console.log(`retry ${i} times`);
+                console.error(`retry ${i} times`, error);
             }
         }
-        console.log(22)
     }
 }
 

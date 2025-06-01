@@ -87,7 +87,7 @@ export function getTriggerLock(){
  */
 export function LockerWrapper (locker, func = noop) {
     if (!locker) {
-        console.log('please pass locker');
+        console.error('please pass locker');
         return func;
     }
 
