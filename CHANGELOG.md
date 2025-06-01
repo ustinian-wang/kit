@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.7](https://github.com/ustinian-wang/kit/compare/v1.0.6...v1.0.7) (2025-06-01)
+
+
+### 📦 Chores | 其他更新
+
+* remove unused code ([675ef9e](https://github.com/ustinian-wang/kit/commit/675ef9e4dc55daac107a2a02b6203b58fdddd8d0))
+
+
+### ✅ Tests | 测试
+
+* fix case import ([66aac60](https://github.com/ustinian-wang/kit/commit/66aac60d543a56a6d1a24457be1d89a2aeb27c37))
+
 ### [1.0.6](https://github.com/ustinian-wang/kit/compare/v1.0.5...v1.0.6) (2025-06-01)
 
 
