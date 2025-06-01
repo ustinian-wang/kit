@@ -1,6 +1,6 @@
 {
     "name": "@ustinian-wang/kit",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "main": "dist/kit.umd.js",
     "module": "dist/kit.es.js",
     "scripts": {

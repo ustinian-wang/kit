@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/ustinian-wang/kit/compare/v1.0.3...v1.0.4) (2025-06-01)
+
+
+### ♻️ Code Refactoring | 代码重构
+
+* export with real name ([2cb7220](https://github.com/ustinian-wang/kit/commit/2cb72209dcdabf197065c121f2547e93919272ad))
+
+
+### 📦 Chores | 其他更新
+
+* add sideEffect ([db1c1a6](https://github.com/ustinian-wang/kit/commit/db1c1a66bed00f1bd33df0b0c821f584ed25474f))
+
 ### [1.0.3](https://github.com/ustinian-wang/kit/compare/v1.0.2...v1.0.3) (2025-06-01)
 
 ### [1.0.2](https://github.com/ustinian-wang/kit/compare/v1.0.1...v1.0.2) (2025-06-01)
