@@ -1,6 +1,6 @@
 import {isArray, isObject, isString} from "./typer.js";
 import {cloneDeep, deepAssign} from "./clone.js";
-import {jsonParse, jsonStringify, safeJsonParse} from "./str.js";
+import {jsonParse, jsonStringify, safeJsonParse} from "./cast.js";
 import {noop} from "./other.js";
 
 /**

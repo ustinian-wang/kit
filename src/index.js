@@ -156,6 +156,10 @@ export {
     isWeixin,
     isAppleWebKit,
     isPC,
+    isIOS,
+    isAndroid,
+    isIE,
+    isEdge,
 } from "./utils/ua.js";
 
 export {
@@ -180,6 +184,12 @@ export {
     getBrowserHeight,
     ptInRect,
 } from "./utils/screen.js"
+
+export {
+    safeJsonParse,
+    jsonParse,
+    jsonStringify,
+} from "./utils/cast.js";
 
 // utils end
 

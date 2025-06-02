@@ -18,7 +18,7 @@
         "pub:major": "yarn build && npm run release:major && git push --follow-tags origin main && npm publish",
         "build": "vite build",
         "dev": "vite",
-        "np": "yarn build && npx np"
+        "np": "yarn test && yarn build && npx np"
     },
     "keywords": [
         "kit",

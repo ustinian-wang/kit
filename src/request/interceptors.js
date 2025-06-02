@@ -1,7 +1,7 @@
 import qs from "./qs.js";
 import { deepAssign } from "../utils/clone.js";
 import { isArray, isObject } from "../utils/typer.js";
-import { jsonStringify } from "../utils/str.js";
+import { jsonStringify } from "../utils/cast.js";
 
 /**
  * @description 设置post请求的content-type的拦截器

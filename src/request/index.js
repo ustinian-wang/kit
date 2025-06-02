@@ -20,7 +20,7 @@ import {
     serializeObjParamOfGetRequest,
     setTokenOfRequest
 } from "./interceptors.js";
-import { jsonStringify } from "../utils/str.js";
+import { jsonStringify } from "../utils/cast.js";
 import { isObject, isString } from "../utils/typer.js";
 import axiosRetry from 'axios-retry';
 
