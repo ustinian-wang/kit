@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>kit aop.js</title>
+  <title>kit ua.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -93,7 +93,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>aop.js</h1>
+                    <h1>ua.js</h1>
                 </header>
                 
 
@@ -102,124 +102,59 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import {CacheFactory} from "./cache";
-import {isFunction} from "./typer.js";
-
+            <pre class="prettyprint source linenums"><code>
 /**
- * @description cache returned value for function calls
- * @param {Function} func - 。
- * @return {Function} return new function caching returned values of calls
+ * Marcoli check is Weixin
+ * @return boolean :true/false
+ *     $.isWeixin()
  */
-export function memorize(func) {
-    let lifeCycle = 60 * 1000; // 默认缓存1分钟
+export function isWeixin() {
+	var ua = navigator.userAgent.toLowerCase();
+	var isWeixin = ua.indexOf('micromessenger') != -1;
+	return isWeixin;
+};
 
-    const cache = CacheFactory({}); // 应该传入配置参数
 
-    return function (...args) {
-        const key = JSON.stringify(args);
+export function isAppleWebKit() {
+	var ua = window.navigator.userAgent;
+	if (ua.indexOf('AppleWebKit') >= 0) {
+		return true;
+	}
+	return false;
+};
 
-        if (cache.containsKey(key)) {
-            return cache.getCache(key);
-        }
 
-        const result = func.apply(this, args);
-        cache.setCache(key, result);
+//判断是PC端还是mobi端
+export function isPC() {
+	var userAgentInfo = navigator.userAgent;
+	var Agents = ['Android', 'iPhone',
+		'SymbianOS', 'Windows Phone',
+		'iPad', 'iPod'];
+	var flag = true;
+	for (var v = 0; v &lt; Agents.length; v++) {
+		if (userAgentInfo.indexOf(Agents[v]) > 0) {
+			flag = false;
+			break;
+		}
+	}
+	return flag;
+};
 
-        return result;
-    };
+export function isIOS() {
+    return /iPad|iPhone/.test(navigator.userAgent) &amp;&amp; !window.MSStream;
 }
 
-/**
- * @description delay function call and collect calling parameters util to call at last. like debounce
- * @param {function} func
- * @param {number} [time=300]
- * @return {function}
- */
-export function delay(func, time) {
-    let timer = null;
-    let argumentsList = [];
-    return function () {
-        argumentsList.push(arguments);
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            func.call(this, argumentsList.map(args => [...args]));
-            argumentsList = [];
-        }, time);
-    }
+export function isAndroid() {
+    return /Android/.test(navigator.userAgent);
 }
 
-/**
- * @description delay function call until last time after specified time
- * @param {function} func function
- * @param {number} [time=300] delay time(ms)
- * @return {function}
- */
-export function debounce(func, time=300) {
-    let timeoutId;
-    return function (...args) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            if(isFunction(func)){
-                func.apply(this, args);
-            }
-        }, time);
-    };
+export function isIE() {
+    return /MSIE|Trident/.test(navigator.userAgent);
 }
 
-/**
- * @description control call time interval of function
- * @param {function} func
- * @param {number} [delay=300] ms
- * @return {function}
- */
-export function throttle(func, delay = 300) {
-    let isThrottled = false;
-    return function (...args) {
-        if (!isThrottled) {
-            func.apply(this, args);
-            isThrottled = true;
-            setTimeout(() => {
-                isThrottled = false;
-            }, delay);
-        }
-    };
+export function isEdge() {
+    return /Edge/.test(navigator.userAgent);
 }
-
-/**
- * @description retry function call until success
- * @param {function} func
- * @param {number} [times=3]
- * @return {Promise}
- */
-export function asyncRetry(func, times = 3) {
-    return async function(...args){
-        for (let i = 0; i &lt; times; i++) {
-            try {
-                return await func.apply(this, args);
-            } catch (error) {
-                console.error(`retry ${i} times`, error);
-            }
-        }
-    }
-}
-
-
-export function before(func, fn=()=>{}) {
-    return function (...args) {
-        fn.apply(this, args);
-        func.apply(this, args);
-    }
-}
-
-export function after(func, fn=()=>{}) {    
-    return function (...args) {
-        func.apply(this, args);
-        fn.apply(this, args);
-    }
-}
-
-
-
 
 </code></pre>
         </article>

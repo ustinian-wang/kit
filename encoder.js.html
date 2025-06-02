@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>kit aop.js</title>
+  <title>kit encoder.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -93,7 +93,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>aop.js</h1>
+                    <h1>encoder.js</h1>
                 </header>
                 
 
@@ -102,125 +102,84 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import {CacheFactory} from "./cache";
-import {isFunction} from "./typer.js";
-
-/**
- * @description cache returned value for function calls
- * @param {Function} func - 。
- * @return {Function} return new function caching returned values of calls
+            <pre class="prettyprint source linenums"><code>/**
+ * @description 解码
+ * @export
+ * @param {*} html
+ * @return {*}
  */
-export function memorize(func) {
-    let lifeCycle = 60 * 1000; // 默认缓存1分钟
-
-    const cache = CacheFactory({}); // 应该传入配置参数
-
-    return function (...args) {
-        const key = JSON.stringify(args);
-
-        if (cache.containsKey(key)) {
-            return cache.getCache(key);
-        }
-
-        const result = func.apply(this, args);
-        cache.setCache(key, result);
-
-        return result;
-    };
+export function decodeHtml(html) {
+    return html &amp;&amp; html.replace
+        ? html
+            .replace(/&amp;nbsp;/gi, ' ')
+            .replace(/&amp;lt;/gi, '&lt;')
+            .replace(/&amp;gt;/g, '>')
+            .replace(/&amp;#92;/gi, '\\')
+            .replace(/&amp;#39;/gi, "'")
+            .replace(/&amp;quot;/gi, '"')
+            .replace(/&lt;br\/>/gi, '\n')
+            .replace(/&amp;amp;/gi, '&amp;')
+        : html;
 }
 
 /**
- * @description delay function call and collect calling parameters util to call at last. like debounce
- * @param {function} func
- * @param {number} [time=300]
- * @return {function}
+ * @description 编码
+ * @export
+ * @param {*} html
+ * @return {*}
  */
-export function delay(func, time) {
-    let timer = null;
-    let argumentsList = [];
-    return function () {
-        argumentsList.push(arguments);
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            func.call(this, argumentsList.map(args => [...args]));
-            argumentsList = [];
-        }, time);
-    }
+export function encodeHtml(html) {
+    return html &amp;&amp; html.replace
+        ? html
+            .replace(/&amp;/g, '&amp;amp;')
+            .replace(/ /g, '&amp;nbsp;')
+            .replace(/\b&amp;nbsp;+/g, ' ')
+            .replace(/&lt;/g, '&amp;lt;')
+            .replace(/>/g, '&amp;gt;')
+            .replace(/\\/g, '&amp;#92;')
+            // eslint-disable-next-line no-useless-escape
+            .replace(/\'/g, '&amp;#39;')
+            // eslint-disable-next-line no-useless-escape
+            .replace(/\"/g, '&amp;quot;')
+            .replace(/\n/g, '&lt;br/>')
+            .replace(/\r/g, '')
+        : html;
 }
 
-/**
- * @description delay function call until last time after specified time
- * @param {function} func function
- * @param {number} [time=300] delay time(ms)
- * @return {function}
- */
-export function debounce(func, time=300) {
-    let timeoutId;
-    return function (...args) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            if(isFunction(func)){
-                func.apply(this, args);
-            }
-        }, time);
-    };
-}
+// 把字符串转换为写在html标签中javascript的字符串，例如&lt;div onclick="alert('xxx')">
+export function encodeHtmlJs(html) {
+	return html &amp;&amp; html.replace ? (html.replace(/\\/g, '\\\\').replace(/\'/g, '\\x27').replace(/\"/g, '\\x22').replace(/\n/g, '\\n').replace(/&lt;/g, '\\x3c').replace(/>/g, '\\x3e')) : html;
+};
 
-/**
- * @description control call time interval of function
- * @param {function} func
- * @param {number} [delay=300] ms
- * @return {function}
- */
-export function throttle(func, delay = 300) {
-    let isThrottled = false;
-    return function (...args) {
-        if (!isThrottled) {
-            func.apply(this, args);
-            isThrottled = true;
-            setTimeout(() => {
-                isThrottled = false;
-            }, delay);
-        }
-    };
-}
-
-/**
- * @description retry function call until success
- * @param {function} func
- * @param {number} [times=3]
- * @return {Promise}
- */
-export function asyncRetry(func, times = 3) {
-    return async function(...args){
-        for (let i = 0; i &lt; times; i++) {
-            try {
-                return await func.apply(this, args);
-            } catch (error) {
-                console.error(`retry ${i} times`, error);
-            }
-        }
-    }
-}
+// 把字符串转换为写在html中属性值，例如&lt;div title="xxx">
+export function encodeHtmlAttr(html) {
+	return html &amp;&amp; html.replace ? (html.replace(/\"/g, '&amp;#x22;').replace(/\'/g, '&amp;#x27;').replace(/&lt;/g, '&amp;#x3c;').replace(/>/g, '&amp;#x3e;').replace(/&amp;/g, '&amp;#x26;')).replace(/\\/g, '&amp;#5c;') : html;
+};
 
 
-export function before(func, fn=()=>{}) {
-    return function (...args) {
-        fn.apply(this, args);
-        func.apply(this, args);
-    }
-}
+// 进行url编码
+export function encodeUrl(url) {
+	return typeof url === 'undefined' ? '' : encodeURIComponent(url);
+};
 
-export function after(func, fn=()=>{}) {    
-    return function (...args) {
-        func.apply(this, args);
-        fn.apply(this, args);
-    }
-}
+// 进行url解码
+export function decodeUrl(url) {
+	var backUrl = '';
+	try {
+		// 如果decodeURIComponent失败, 会爆Uncaught URIError
+		backUrl = (typeof url === 'undefined' ? '' : decodeURIComponent(url));
+	} catch (e) {
+		backUrl = '';
+	}
+	return backUrl;
+};
 
 
 
-
+//  解码在html中属性值，例如&lt;div title="xxx">
+export function decodeHtmlAttr(html) {
+	return html &amp;&amp; html.replace ? (html.replace(/&amp;#x22;/gi, '"').replace(/&amp;#x27;/gi, '\'').replace(/&amp;#x3c;/gi, '&lt;').replace(/&amp;#x3e;/gi, '>').replace(/&amp;#x26;/gi, '&amp;')).replace(/&amp;#5c;/gi, '\\') : html;
+};
 </code></pre>
         </article>
     </section>
