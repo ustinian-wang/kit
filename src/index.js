@@ -102,9 +102,6 @@ export {
     isNormalEventName,
     ellipsis,
     isJSON,
-    safeJsonParse,
-    jsonParse,
-    jsonStringify,
     getGbLen,
     subGbStr,
 } from "./utils/str.js";
@@ -137,6 +134,31 @@ export {
 } from "./utils/clone.js";
 
 export {
+    isEnterKey,
+    isNumberKey,
+    isPhoneNumberKey,
+    checkTwoDecimal,
+    checkOneDecimal,
+    isFloatKey
+} from "./utils/keyboard.js";
+
+export {
+    decodeHtml,
+    encodeHtml,
+    encodeHtmlJs,
+    encodeHtmlAttr,
+    encodeUrl,
+    decodeUrl,
+    decodeHtmlAttr,
+} from "./utils/encoder.js";
+
+export {
+    isWeixin,
+    isAppleWebKit,
+    isPC,
+} from "./utils/ua.js";
+
+export {
     parseUrl,
     toUrl,
     getUrlSearchParam,
@@ -149,7 +171,16 @@ export {
     isUrl,
     isAbsoluteUrl,
 } from "./utils/url.js";
-import { checkBit } from "./utils/bit.js";
+export { checkBit, andBit, orBit } from "./utils/bit.js";
+
+export {
+    getScreen,
+    getScreenType,
+    getBrowserWidth,
+    getBrowserHeight,
+    ptInRect,
+} from "./utils/screen.js"
+
 // utils end
 
 
@@ -176,3 +207,4 @@ export {
   isTodayBefore,
   extendTime
 } from "./libs/moment.js";
+// libs end

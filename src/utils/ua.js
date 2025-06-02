@@ -35,3 +35,20 @@ export function isPC() {
 	}
 	return flag;
 };
+
+export function isIOS() {
+    return /iPad|iPhone/.test(navigator.userAgent) && !window.MSStream;
+}
+
+export function isAndroid() {
+    return /Android/.test(navigator.userAgent);
+}
+
+export function isIE() {
+    return /MSIE|Trident/.test(navigator.userAgent);
+}
+
+export function isEdge() {
+    return /Edge/.test(navigator.userAgent);
+}
+

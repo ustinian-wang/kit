@@ -1,6 +1,7 @@
+import {isIE} from "./ua.js";
 
 export function isEnterKey(e) {
-	if ($.browser.msie) {   
+	if (isIE()) {   
 		if (event.keyCode == 13) {   
 			return true;   
 		} else {   
@@ -15,8 +16,8 @@ export function isEnterKey(e) {
 	}   
 };
 
-export isNumberKey = function(e, iSminus) {//按下数字键则返回true,用法：<input type="text" onkeypress="javascript:return export isNumberKey(event);"/>
-	if ($.browser.msie) {
+export function isNumberKey(e, iSminus) {//按下数字键则返回true,用法：<input type="text" onkeypress="javascript:return export isNumberKey(event);"/>
+	if (isIE()) {
 		if (iSminus && event.keyCode == 45) {
 			return true; 
 		}
@@ -41,8 +42,8 @@ export isNumberKey = function(e, iSminus) {//按下数字键则返回true,用法
 
 //按下数字键则返回true,用法：<input type="text" onkeypress="javascript:return export isNumberKey(event);"/>
 //在isNumberKey函数下增加一个","逗号键入，兼容直拨分机号
-export isPhoneNumberKey = function(e, iSminus) {
-	if ($.browser.msie) {
+export function isPhoneNumberKey(e, iSminus) {
+	if (isIE()) {
 		if (iSminus && event.keyCode == 45) {
 			return true; 
 		}   
@@ -66,11 +67,11 @@ export isPhoneNumberKey = function(e, iSminus) {
 };
 
 //控制只能输入小数点后两位
-export checkTwoDecimal  = function(e, id) {
+export function checkTwoDecimal(e, id) {
 	var val = $('#' + id).val();
 	var reg = /^[0-9]\d*(?:\.\d{1,2}|\d*)$/;
 	var keyVal;
-	if ($.browser.msie) {
+	if (isIE()) {
 		if (event.keyCode > 47 && event.keyCode < 58) {
 			keyVal = String.fromCharCode(e.which);  
 			val = val + '' + keyVal;
@@ -88,11 +89,11 @@ export checkTwoDecimal  = function(e, id) {
 };
 
 //控制只能输入小数点后一位
-export checkOneDecimal = function(e, id) {
+export function checkOneDecimal(e, id) {
 	var val = $('#' + id).val();
 	var reg = /^[0-9]\d*(?:\.\d{1}|\d*)$/;
 	var keyVal;
-	if ($.browser.msie) {
+	if (isIE()) {
 		if (event.keyCode > 47 && event.keyCode < 58) {
 			keyVal = String.fromCharCode(e.which);  
 			val = val + '' + keyVal;
@@ -109,25 +110,9 @@ export checkOneDecimal = function(e, id) {
 	} 
 };
 
-/*按下数字键则返回true,(iSminus:是否允许输入‘-’)
-使用onafterpaste事件可防止黏贴强制输入
-用法：<input type="text" onkeyup="javascript:export isNumberUJs(this);" onafterpaste="javascript:export isNumberUJs(this)"/>
-*/
-export function isNumberKey2(obj, iSminus) {
-	/*if ($.browser.msie) {
-		if(event.keyCode == 37 || event.keyCode == 39) return;
-	} else {
-		if(e.which == 37 || e.which == 39) return;
-	}*/
-	if (iSminus) {
-		$(obj).val($(obj).val().replace(/[^0-9\-]/g, ''));
-	} else {
-		$(obj).val($(obj).val().replace(/[^0-9]/g, ''));
-	}
-};
 
 export function isFloatKey(e) {//按下数字键和小数点则返回true,用法：<input type="text" onkeypress="javascript:return export isFloatKey(event);"/>
-	if ($.browser.msie) {   
+	if (isIE()) {   
 		if (((event.keyCode > 47) && (event.keyCode < 58)) ||   
               (event.keyCode == 8) || (event.keyCode == 46)) {   
 			return true;   
