@@ -8,6 +8,7 @@ import {
     isUndefined
 } from "../src/utils/typer";
 import {isStringArray} from "../src/utils/arr";
+// import {isObjectString} from "../src/utils/cast";
 
 test("isObjectString", ()=>{
     expect(isObjectString("{}")).toBeTruthy()

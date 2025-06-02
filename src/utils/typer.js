@@ -1,4 +1,4 @@
-import {safeJsonParse} from "./str.js";
+import {safeJsonParse} from "./cast.js";
 
 /**
  * @description whether value is Promise type

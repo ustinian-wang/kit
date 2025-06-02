@@ -201,3 +201,29 @@ export const FileSizeDef = {
     KB: 1024,
     MB: 1024*1024
 }
+
+
+/**
+ * 文件单位转换(B)转成(KB/MB)
+ */
+export function bit2SizeText(bit) {
+	
+	if (typeof bit != 'undefined' && typeof bit == 'number') {
+		var newFileSize;
+		var tmpSize;
+		if (bit < 1024) {
+			newFileSize = bit + 'B';
+		} else if (bit < 1024 * 1024) {
+			tmpSize = bit / 1024;
+			//alert(tmpSize);
+			newFileSize = tmpSize.toFixed(2) + 'KB';
+		} else {
+			tmpSize = bit / (1024 * 1024);
+			newFileSize = tmpSize.toFixed(2) + 'MB';
+		}
+		
+		return newFileSize;
+	} else {
+		return '-';
+	}
+};

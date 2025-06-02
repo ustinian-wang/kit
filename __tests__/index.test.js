@@ -1,9 +1,9 @@
 import * as kit from "../src/index.js";
 
-import {jsonStringify} from "../src/utils/str";
+import {jsonStringify} from "../src/utils/cast";
 import {getArgTestCasesOfFunction} from "../src/utils/test";
+import {isFunction} from "../src/utils/typer";
 
-class A {}
 describe("testFunctionArgsType", function () {
     const originalConsole = console;
     beforeEach(function () {
@@ -23,6 +23,9 @@ describe("testFunctionArgsType", function () {
         // if(!isFunction(func) || isClass(func)){
         //     return;
         // }
+        if(!isFunction(func)){
+            return;
+        }
         let testArgsList = getArgTestCasesOfFunction(func);
         testArgsList.forEach(args=>{
             test(`${name}; args=${jsonStringify(args)}`, ()=>{

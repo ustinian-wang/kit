@@ -64,3 +64,106 @@ export function checkBit(flag, bitFlag) {
     }
     return result;
 }
+
+
+
+export function andBit(flag, bitFlag) {
+	var bit_31 = true;
+	//31位皆置1为：2147483647
+	if (flag > 2147483647 || flag < 0 || bitFlag > 2147483647 || bitFlag < 0) {
+		bit_31 = false;
+	}
+	if (bit_31) {
+		return flag &= bitFlag;
+	}
+	
+	var flagBinary = flag.toString(2);
+	var bitFlagBinary = bitFlag.toString(2);
+	if (flagBinary.length > 62 || bitFlagBinary.length > 62) {
+		alert('Does not support more than 62 bit. flagBinary.length=' + flagBinary.length + ',bitFlagBinary.length' + bitFlagBinary.length + '.');
+		return 0;
+	}
+	var flagLow;
+	var bitFlagHight;
+	var bitFlagLow;
+	var flagHight;
+	var lowStr;
+	var hightStr;
+	flagHight = flagLow = bitFlagHight = bitFlagLow = 0;
+	//拆分高低位处理
+	if (flagBinary.length > 31) {
+		hightStr = flagBinary.slice(0, flagBinary.length - 31);
+		lowStr = flagBinary.slice(flagBinary.length - 31);
+		flagHight = parseInt(hightStr, '2');
+		flagLow = parseInt(lowStr, '2');
+	} else {
+		flagLow = parseInt(flagBinary.slice(0, flagBinary.length), '2');
+	}
+	if (bitFlagBinary.length > 31) {
+		hightStr = bitFlagBinary.slice(0, bitFlagBinary.length - 31);
+		lowStr = bitFlagBinary.slice(bitFlagBinary.length - 31);
+		bitFlagHight = parseInt(hightStr, '2');
+		bitFlagLow = parseInt(lowStr, '2');
+	} else {
+		bitFlagLow = parseInt(bitFlagBinary.slice(0, bitFlagBinary.length), '2');
+	}
+	flagLow &= bitFlagLow;
+	flagHight &= bitFlagHight;
+	flagBinary = flagLow.toString(2);
+	//低位补0
+	for (;flagBinary.length < 31;) {
+		flagBinary = '0' + flagBinary;
+	}
+	flagBinary = flagHight.toString(2) + flagBinary;
+	return parseInt(flagBinary, '2');
+};
+
+export function orBit(flag, bitFlag) {
+	var bit_31 = true;
+	if (flag > 2147483647 || flag < 0 || bitFlag > 2147483647 || bitFlag < 0) {
+		bit_31 = false;
+	}
+	if (bit_31) {
+		return flag |= bitFlag;
+	}
+	
+	var flagBinary = flag.toString(2);
+	var bitFlagBinary = bitFlag.toString(2);
+	if (flagBinary.length > 62 || bitFlagBinary.length > 62) {
+		alert('Does not support more than 62 bit. flagBinary.length=' + flagBinary.length + ',bitFlagBinary.length' + bitFlagBinary.length + '.');
+		return 0;
+	}
+	var flagLow;
+	var bitFlagHight;
+	var bitFlagLow;
+	var flagHight;
+	var lowStr;
+	var hightStr;
+
+	flagHight = flagLow = bitFlagHight = bitFlagLow = 0;
+	if (flagBinary.length > 31) {
+		hightStr = flagBinary.slice(0, flagBinary.length - 31);
+		lowStr = flagBinary.slice(flagBinary.length - 31);
+		flagHight = parseInt(hightStr, '2');
+		flagLow = parseInt(lowStr, '2');
+	} else {
+		flagLow = parseInt(flagBinary.slice(0, flagBinary.length), '2');
+	}
+	if (bitFlagBinary.length > 31) {
+		hightStr = bitFlagBinary.slice(0, bitFlagBinary.length - 31);
+		lowStr = bitFlagBinary.slice(bitFlagBinary.length - 31);
+		bitFlagHight = parseInt(hightStr, '2');
+		bitFlagLow = parseInt(lowStr, '2');
+	} else {
+		bitFlagLow = parseInt(bitFlagBinary.slice(0, bitFlagBinary.length), '2');
+	}
+	flagLow |= bitFlagLow;
+	flagHight |= bitFlagHight;
+	flagBinary = flagLow.toString(2);
+	//低位补0
+	for (;flagBinary.length < 31;) {
+		flagBinary = '0' + flagBinary;
+	}
+	flagBinary = flagHight.toString(2) + flagBinary;
+	return parseInt(flagBinary, '2');
+};

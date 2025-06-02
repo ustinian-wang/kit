@@ -3,7 +3,7 @@
  * @param {object} cache
  * @param {number} lifeCycle
  */
-import { jsonStringify, safeJsonParse } from './str.js';
+import { jsonStringify, safeJsonParse } from './cast.js';
 import { isObject } from "./typer";
 import {getter} from "./obj.js";
 import {getWindow} from "./env.js";

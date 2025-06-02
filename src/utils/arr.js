@@ -330,3 +330,20 @@ export function diffArrays(one, two) {
     return over;
 }
   
+
+/**
+ * @description push unique item to array
+ * @param {Array<any>} array
+ * @param {*} item
+ * @returns {Array<any>}
+ */
+export function pushUnique(array, item) {
+    if (!isArray(array)) {
+        array = [];
+    }
+    if (!array.includes(item)) {
+        array.push(item);
+    }
+    return array;
+}
+

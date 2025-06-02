@@ -94,55 +94,6 @@ export function isJSON(str) {
 }
 
 /**
- * @description JSON.parse with try catch
- * @param {any} string
- * @param {object|array|undefined} defaultValue
- * @returns {any}
- */
-export function safeJsonParse(string, defaultValue = void 0) {
-    if (isJSON(string)) {
-        return jsonParse(string);
-    } else {
-        return defaultValue;
-    }
-}
-
-/**
- * @description JSON.parse with try catch
- * @param {string} string
- * @param {object|array|undefined} defaultValue
- * @returns {any}
- */
-export function jsonParse(string = '', defaultValue) {
-    try {
-        return JSON.parse(string);
-    } catch (e) {
-        console.error('jsonParse error', e, string);
-        console.error(
-            '如果要忽略jsonParse的报错，可以调用saveJsonParse，但最好还是查下为什么报错',
-        );
-        return defaultValue;
-    }
-}
-
-/**
- * @description JSON.stringify with try catch
- * @param {object|array} object
- * @param {string|undefined} defaultValue
- * @param extArgs
- * @returns {string|*}
- */
-export function jsonStringify(object, defaultValue = void 0, extArgs = {}) {
-    let { replacer, space } = extArgs;
-    try {
-        return JSON.stringify(object, replacer, space);
-    } catch (e) {
-        console.error('jsonStringify error ', e);
-        return defaultValue;
-    }
-}
-
-/**
  * @description compute string length including Chinese and English chars
  * @param {string} str
  * @returns {number}
@@ -187,3 +138,114 @@ export function subGbStr(str, index, point = true) {
         return rtStr;
     }
 }
+
+
+
+/*
+ * 判断是否字母
+ */
+export function isLetter(val) {
+	if ((val < 'a' || val > 'z') && (val < 'A' || val > 'Z')) {
+		return false;
+	}
+	
+	return true;
+};
+
+/*
+ * 判断是否中文
+ */
+export function isChinese(val) {
+	if (val < '一' || val > '龥') {
+		return false;
+	}
+	
+	return true;
+};
+
+export function isIp(ipaddr) {
+	if (typeof ipaddr != 'string' || $.trim(ipaddr) == '') {
+		return false;
+	}
+	var ss = ipaddr.split('.');
+	if (ss.length != 4) {
+		return false;
+	}
+    for(let e of ss){
+        if (!isNumber(e) || parseInt(e) < 0 || parseInt(e) > 255) {
+			return true;
+		}
+    }
+    return false;
+};
+
+export function isDomain(obj) {
+	if (/^[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9]$/.test(obj)) {
+		if (obj.indexOf('--') >= 0) {
+			return false;
+		}
+		return true;
+	} else { 
+		return false;
+	}
+};
+
+export function isWord(word) {
+	var pattern = /^[a-zA-Z0-9_]+$/;   
+	return pattern.test(word);
+};
+
+export function isEmail(email) {
+	var pattern = /^[a-zA-Z0-9][a-zA-Z0-9_=\&\-\.\+]*[a-zA-Z0-9]*@[a-zA-Z0-9][a-zA-Z0-9_\-\.]+[a-zA-Z0-9]$/;
+	return pattern.test(email);
+};
+
+export function isEmailDomain(email) {
+	var pattern = /^[a-zA-Z0-9][a-zA-Z0-9_\-]*\.[a-zA-Z0-9\-][a-zA-Z0-9_\-\.]*[a-zA-Z0-9]$/;
+	return pattern.test(email);
+};
+
+// 校验手机号（针对大陆手机 11位号码，新增对16和19开头的校验）
+export function isMobile(mobile) {
+	var pattern = /^1[3456789]\d{9}$/;
+	return pattern.test(mobile);
+};
+
+export function isPhone(phone) {
+	var pattern1 = /^([^\d])+([^\d])*([^\d])$/;
+	var pattern2 = /^([\d\+\s\(\)-])+([\d\+\s\(\)-])*([\d\+\s\(\)-])$/;
+	//var p1 = /^(([0\+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/;
+	if (pattern1.test(phone)) {
+		return false;
+	}
+	return pattern2.test(phone);
+};
+
+// 校验手机号（海内外）
+export function isNationMobile(mobile) {
+	var pattern = /^\d{7,11}$/;
+	return pattern.test(mobile);
+};
+
+//验证身份证号码
+export function isCardNo(card) {
+	var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+	return pattern.test(card);
+};
+
+//supAbsuRoot   是否支持绝对路径
+export function isUrl(str_url, supAbsuRoot) {
+	if (typeof supAbsuRoot == 'undefined') {
+		supAbsuRoot = true;
+	}
+	if (supAbsuRoot && str_url.length >= 1 && str_url.charAt(0) == '/') {
+		return true;
+	}
+	if (supAbsuRoot && str_url.length >= 1 && str_url.charAt(0) == '#') {
+		return true;
+	}
+
+	var re = /^(\w+:).+/;
+	var result = re.test(str_url);	
+	return result;
+};

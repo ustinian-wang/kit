@@ -204,3 +204,23 @@ export function isAbsoluteUrl(value ) {
         return false
     }
 }
+
+
+/**
+ * @description get hash param from url
+ * @param {string} hash
+ * @param {string} name
+ * @returns {string}
+ */
+export function getHashParam(hash, name) {
+	var paramStrings = hash.substring(hash.indexOf('#') + 1, hash.length).split('&');
+	var value;
+	$.each(paramStrings, function(index, str) {
+		var tmpKey = decodeURIComponent(str.substring(0, str.indexOf('=')));
+		if (tmpKey === name) {
+			value = decodeURIComponent(str.substring(str.indexOf('=') + 1, str.length));
+			return false;
+		}
+	});
+	return value;
+};

@@ -3,9 +3,8 @@ import {
     ellipsis,
     isJSON,
     isNormalEventName,
-    safeJsonParse
 } from "../src/utils/str";
-
+import {safeJsonParse} from "../src/utils/cast";
 
 test('addZero', () => {
     expect(padZero(1)).toBe('01');
