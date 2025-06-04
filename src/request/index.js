@@ -22,6 +22,7 @@ import {
 } from "./interceptors.js";
 import { jsonStringify } from "../utils/cast.js";
 import { isObject, isString } from "../utils/typer.js";
+import { isUrl } from "../utils/url.js";
 import axiosRetry from 'axios-retry';
 
 /**
@@ -29,7 +30,7 @@ import axiosRetry from 'axios-retry';
  * @description 克隆请求库
  * @return {*}
  */
-export const cloneRequest = () => {
+export function cloneRequest() {
     //vuepress引入这个会出现global错误
     let instance = axios.create({
         timeout: 15000,
@@ -71,8 +72,14 @@ export const request = cloneRequest();
  * @param {object} cusRequest 自定义的请求axios对象，你也可以通过cloneRequest获取request二次包装，弄一个适配业务的request库
  * @return {Promise<string>} 返回值和ajax一样，都是json格式
  */
-export const ajaxOfRequest = (options, cusRequest = request) => {
+export function ajaxOfRequest(options, cusRequest = request) {
     let { type = 'get', url = '', data = '', success = function () {}, error = function () {} } = options;
+    
+    if(!isUrl(url)){
+        console.error(`[url] is not a valid url`);
+        return;
+    }
+        
     let params = {};
     if (isObject(data)) {
         params = data;

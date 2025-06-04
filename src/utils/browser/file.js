@@ -227,3 +227,16 @@ export function bit2SizeText(bit) {
 		return '-';
 	}
 };
+
+/**
+ * @description 文件转base64
+ * @param {File} file 文件
+ * @returns {Promise<string>}
+ */
+export function file2Base64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+    });
+}

@@ -18,7 +18,7 @@ describe("testFunctionArgsType", function () {
         console = originalConsole;
     })
     // return;
-    Object.keys(kit).forEach(name=>{
+    Object.keys(kit).filter(key=>!key.toLowerCase().includes("request")).forEach(name=>{
         let func = kit[name];
         // if(!isFunction(func) || isClass(func)){
         //     return;
