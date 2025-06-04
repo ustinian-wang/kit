@@ -218,3 +218,9 @@ export {
   extendTime
 } from "./libs/moment.js";
 // libs end
+
+export {
+    request,
+    cloneRequest,
+    ajaxOfRequest,
+} from "./request/index.js";
